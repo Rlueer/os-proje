@@ -1,0 +1,116 @@
+# GTU-C312 İşletim Sistemi - os.gtu
+
+Begin Data Section
+    # --- CPU Özel Yazmaçları (OS bunları kendi başlangıç değerleriyle ayarlar) ---
+    0 = 200         # OS Program Counter Başlangıcı (Komutlar 200'den başlasın)
+    1 = 990         # OS Stack Pointer Başlangıcı (OS Yığını için 990-999 arası 10 hücre)
+    # memory[2] (SysCall Result) CPU tarafından kullanılır
+    # memory[3] (Instr Executed) CPU tarafından kullanılır
+
+    # --- OS Tarafından Kullanılacak Özel Bellek Alanları ---
+    10 = 0          # Son yapılan sistem çağrısının türü (CPU ayarlar: 0=PRN, 1=HLT, 2=YIELD)
+    11 = 300        # SYSCALL_HLT Handler adresi (OS içinde, komut adresi 300)
+    12 = 400        # SYSCALL_YIELD Handler adresi (OS içinde, komut adresi 400)
+    # 13..19 arası OS'ye ayrılmış özel kullanımlar için (örn: mevcut thread ID)
+    15 = 0          # current_running_thread_id (0: OS, 1: Thread1, ...)
+
+    # --- İplik Tablosu (Thread Control Block - TCB) ---
+    # Her iplik için 6 hücre: BaseAddr=20
+    # Offset: 0:ID, 1:State(0:Ready,1:Run,2:Block,3:Halt), 2:PC, 3:SP, 4:StackBase, 5:StackLimit
+    # OS (Thread 0) - ID=0
+    20 = 0          # TCB0_ID
+    21 = 1          # TCB0_STATE (Running)
+    22 = 200        # TCB0_PC
+    23 = 990        # TCB0_SP
+    24 = 999        # TCB0_STACK_BASE (En yüksek adres)
+    25 = 900        # TCB0_STACK_LIMIT (En düşük adres, örnek)
+
+    # Thread 1 - ID=1 (Programı 1000'de başlar, yığını 1999'dan aşağı)
+    26 = 1          # TCB1_ID
+    27 = 0          # TCB1_STATE (Ready)
+    28 = 1000       # TCB1_PC (Thread 1'in ilk komut adresi)
+    29 = 1990       # TCB1_SP (Thread 1'in başlangıç SP'si, yığın için 10 hücre)
+    30 = 1999       # TCB1_STACK_BASE
+    31 = 1900       # TCB1_STACK_LIMIT
+    
+    # ... Diğer 8 iplik için alanlar (şimdilik 0 veya varsayılan) ...
+    # Thread 2 için başlangıç (ID=2)
+    32 = 2
+    33 = 3 # Halted (SYSCALL HLT ilk komutu olacak şekilde planlayalım)
+    34 = 2000
+    35 = 2990
+    36 = 2999
+    37 = 2900
+
+    # --- Geçici Değerler/Adresler için OS Alanı ---
+    70 = 0          # USER komutu için yeni PC'yi tutacak geçici adres
+End Data Section
+
+Begin Instruction Section
+    # --- OS Başlangıç ve Kurulum ---
+200: SET 0, 15     # current_running_thread_id = 0 (OS çalışıyor)
+    # İleride burada tüm iplik tablosu girişleri döngüyle kurulabilir.
+    # Şimdilik Thread 1'i çalıştırmaya odaklanalım.
+
+    # --- İlk İpliği (Thread 1) Çalıştır ---
+    # 1. Thread 1'in durumunu RUNNING yap (opsiyonel, CPU zaten onu çalıştıracak)
+    # SET 1, 27      # TCB1_STATE = Running (memory[27]=1)
+
+    # 2. Thread 1'in PC'sini (memory[28]'de) alıp CPU'nun PC'sine (memory[0]) yaz.
+201: CPY 28, 0      # PC = TCB1_PC
+    # 3. Thread 1'in SP'sini (memory[29]'da) alıp CPU'nun SP'sine (memory[1]) yaz.
+202: CPY 29, 1      # SP = TCB1_SP
+
+    # 4. Thread 1'in ID'sini current_running_thread_id yap.
+203: CPY 26, 15     # current_running_thread_id = TCB1_ID (yani 1)
+
+    # 5. USER moduna geç ve Thread 1'i başlat.
+    # USER komutu, argüman olarak PC'nin *yeni değerini* alır.
+    # CPU _decode_execute'deki USER implementasyonumuz:
+    #   new_pc_value = self.memory[address_containing_new_pc]
+    #   self.pc = new_pc_value
+    # Bu, USER komutunun bir adres aldığı ve o adresteki değeri yeni PC yaptığı anlamına gelir.
+    # PC değerini (örn: 1000) geçici bir adrese (70) yazıp USER 70 yapmalıyız.
+204: CPY 0, 70      # memory[70] = memory[0] (Thread 1'in PC'si)
+205: USER 70        # PC = memory[70], Mode = USER
+    
+    # Kontrol Thread 1'e geçer. Thread 1 SYSCALL_HLT veya SYSCALL_YIELD yapana kadar
+    # veya bir hata oluşana kadar OS'ye geri dönmez.
+
+    # --- OS Ana Bekleme/Zamanlama Döngüsü (Çok Basit) ---
+    # İpliklerden kontrol buraya bir şekilde (syscall ile) dönmeli.
+    # Şimdilik, eğer bir iplik HLT ederse CPU durur, OS'ye dönmez.
+    # Eğer tüm iplikler biterse OS'nin CPU'yu HLT etmesi gerekir.
+210: HLT            # Tüm iplikler bittiğinde veya OS yapacak iş bulamadığında.
+                    # Bu HLT'ye normalde gelinmemeli, zamanlayıcı çalışmalı.
+
+    # --- Sistem Çağrısı İşleyicileri ---
+    # SYSCALL_HLT Handler (Adres: memory[11] = 300)
+300: SET 0, 0       # Basit bir işlem (debug için)
+    # Burası SYSCALL_HLT'nin işlendiği yer olacak.
+    # 1. Hangi ipliğin SYSCALL_HLT yaptığını bul (örn: memory[15]'teki current_running_thread_id)
+    # 2. O ipliğin TCB'sindeki state'i "Halted" yap.
+    # 3. Bir sonraki çalışacak ipliği seç (scheduler).
+    # 4. Seçilen ipliğin PC, SP'sini yükle ve USER ile başlat.
+    # Şimdilik, eğer bir iplik HLT ederse, başka iplik yoksa OS'yi durduralım.
+301: SET 210, 0     # PC'yi OS HLT adresine (210) ayarla. (Bu JIF ile yapılmalı aslında)
+                    # Bu satırın yerine zamanlayıcıya dallanma olmalı.
+                    # JIF <koşul_adresi_tüm_iplikler_bitti_mi>, <OS_HLT_adresi_210>
+                    # Şimdilik direkt HLT ediyoruz.
+302: HLT            # OS'yi durdur (SYSCALL_HLT sonrası test için)
+
+
+    # SYSCALL_YIELD Handler (Adres: memory[12] = 400)
+400: SET 0, 0       # Basit bir işlem
+    # Burası SYSCALL_YIELD'ın işlendiği yer olacak.
+    # 1. Mevcut ipliğin (memory[15]) PC ve SP'sini TCB'sine kaydet.
+    # 2. Mevcut ipliğin state'ini "Ready" yap.
+    # 3. Bir sonraki çalışacak ipliği seç (scheduler - round robin).
+    # 4. Seçilen ipliğin state'ini "Running" yap.
+    # 5. Seçilen ipliğin TCB'sinden PC ve SP'sini yükle.
+    # 6. USER ile yeni ipliği başlat.
+    # Şimdilik OS'yi durduralım.
+401: SET 210, 0     # PC'yi OS HLT adresine (210) ayarla.
+402: HLT            # OS'yi durdur (SYSCALL_YIELD sonrası test için)
+
+End Instruction Section

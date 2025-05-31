@@ -94,6 +94,8 @@ class CPU:
     
     def _is_valid_address(self, address, operation_type="access"):
         """Bellek adresinin geçerli olup olmadığını ve erişim haklarını kontrol eder."""
+        print(f"DEBUG: Checking address {address} for {operation_type}, Mode: {self.mode}")  # EKLE
+    
         if not (0 <= address < len(self.memory)):
             print(f"Error: {operation_type.capitalize()} to invalid memory address {address}. Halting.")
             self.is_halted = True
@@ -133,6 +135,7 @@ class CPU:
         PUSH/POP komutlarına temel yığın sınırı kontrolleri eklendi.
         SYSCALL_HLT ve SYSCALL_YIELD OS handler'larına PC'yi yönlendiriyor.
         """
+        print(f"DEBUG: Executing command at PC {self.pc}: {instruction_str}")  # EKLE
         if not instruction_str or not isinstance(instruction_str, str):
             print(f"Warning: Invalid instruction format or empty instruction at PC {self.pc}. Halting.")
             self.is_halted = True
@@ -164,6 +167,8 @@ class CPU:
                     if self._is_valid_address(memory_address, "write to"):
                         self.memory[memory_address] = value_to_set
                         executed_successfully = True
+                        if memory_address == CPU.REG_PC: # Eğer PC'ye yazılıyorsa
+                            pc_incremented_by_command = True # PC zaten komutla değişti
                 except ValueError: # ...
                     print(f"Error: Invalid arguments for SET: {args}. Halting.")
                     self.is_halted = True
@@ -183,6 +188,9 @@ class CPU:
                 except ValueError: # ...
                     print(f"Error: Invalid arguments for CPY: {args}. Halting.")
                     self.is_halted = True
+                except Exception as e: # Genel hata yakalama (opsiyonel debug için)
+                     print(f"Unexpected error in CPY: {e}. Halting.")
+                     self.is_halted = True
             else: # ...
                 print(f"Error: CPY requires 2 arguments, got {len(args)}. Halting.")
                 self.is_halted = True
@@ -347,10 +355,6 @@ class CPU:
                 print(f"Error: POP requires 1 argument, got {len(args)}. Halting.")
                 self.is_halted = True
 
-        # ... (CALL, RET, USER kodları aynı, ama SYSCALL'lardan ÖNCE olmalı) ...
-        # Doğru sıralama için önceki yanıtlara bakınız. SYSCALL'lar en sona yakın olmalı.
-        # Bu örnekte sadece SYSCALL'ları güncellediğim için diğerlerini tekrar yazmıyorum.
-
         elif command == "CALL": # Format: CALL C (Dönüş adresini yığına it, PC = C yap)
             if len(args) == 1:
                 try:
@@ -468,9 +472,11 @@ class CPU:
             return 
 
         if executed_successfully:
+            print(f"DEBUG: Before IE increment: IE={self.instructions_executed}, Current Command: {command}") # DEBUG SATIRI
             if not pc_incremented_by_command:
                 self.pc += 1
             self.instructions_executed += 1
+            print(f"DEBUG: After IE increment: IE={self.instructions_executed}") # DEBUG SATIRI
         elif not self.is_halted: 
             print(f"Error: Command '{command}' with args {args} could not be executed successfully. Halting.")
             self.is_halted = True
