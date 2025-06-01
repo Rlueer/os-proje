@@ -496,6 +496,7 @@ class CPU:
                 self.is_halted = True
 
         elif command == "SYSCALL_YIELD": 
+            print(f"[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]={self.memory[15]}")
             if not args:
                 self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 2 # YIELD syscall kodu
 

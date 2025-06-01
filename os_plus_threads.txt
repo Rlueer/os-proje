@@ -1,29 +1,30 @@
 # os_plus_threads.gtu
-# OS ve İki Basit İplik (Thread 1 & Thread 2)
-# Adres çakışmaları ve scheduler mantığı düzeltilmiş hali
+# OS ve Iki Basit Iplik (Thread 1 & Thread 2)
+# Adres cakismalari ve scheduler mantigi duzeltilmis hali
+# Corrections: Line 654 (SET 1, 15), Line 655 (SYSCALL_PRN 15), Line 706 (JIF 0, 203)
 
 #-----------------------------------------------------
-# VERİ BÖLÜMÜ
+# VERI BOLUMU
 #-----------------------------------------------------
 Begin Data Section
-    # --- CPU Özel Yazmaçları ---
-    0 = 200         # OS PC Başlangıcı
-    1 = 990         # OS SP Başlangıcı
-    # memory[2] (SysCall Result) CPU tarafından YIELD sonrası dönüş PC'sini tutacak
-    # memory[3] (Instr Executed) CPU tarafından kullanılır
+    # --- CPU Ozel Yazmaclari ---
+    0 = 200         # OS PC Baslangici
+    1 = 990         # OS SP Baslangici
+    # memory[2] (SysCall Result) CPU tarafindan YIELD sonrasi donus PC'sini tutacak
+    # memory[3] (Instr Executed) CPU tarafindan kullanilir
 
-    # --- OS Özel Alanları ---
-    10 = 0          # Son Syscall Türü (0:PRN, 1:HLT, 2:YIELD) - CPU ayarlar
+    # --- OS Ozel Alanlari ---
+    10 = 0          # Son Syscall Turu (0:PRN, 1:HLT, 2:YIELD) - CPU ayarlar
     11 = 300        # SYSCALL_HLT Handler Adresi
     12 = 400        # SYSCALL_YIELD Handler Adresi
-    15 = 0          # current_running_thread_id (0:OS, 1:T1, 2:T2) - OS günceller
-    16 = 1          # next_thread_to_run_id (Scheduler bunu günceller)
-    17 = 0          # Geçici - YIELD yapan ipliğin TCB'sine kaydedilecek PC'yi tutar
-    18 = 0          # Geçici - YIELD yapan ipliğin TCB'sine kaydedilecek SP'yi tutar
+    15 = 0          # current_running_thread_id (0:OS, 1:T1, 2:T2) - OS gunceller
+    16 = 1          # next_thread_to_run_id (Scheduler bunu gunceller)
+    17 = 0          # Gecici - YIELD yapan ipligin TCB'sine kaydedilecek PC'yi tutar
+    18 = 0          # Gecici - YIELD yapan ipligin TCB'sine kaydedilecek SP'yi tutar
 
-    # --- İplik Tablosu (TCB) ---
+    # --- Iplik Tablosu (TCB) ---
     # Her iplik: ID(offset 0), State(offset 1: 0=Ready,1=Run,2=Block,3=Halt), SavedPC(offset 2), SavedSP(offset 3)
-    # TCB_SIZE = 4 (ID, State, PC, SP için şimdilik) StackBase/Limit daha sonra eklenebilir.
+    # TCB_SIZE = 4 (ID, State, PC, SP icin simdilik) StackBase/Limit daha sonra eklenebilir.
     # OS (Thread 0) - ID=0
     20 = 0          # TCB0_ID
     21 = 1          # TCB0_STATE (Running)
@@ -33,28 +34,28 @@ Begin Data Section
     # Thread 1 (ID=1)
     24 = 1          # TCB1_ID
     25 = 0          # TCB1_STATE (Ready)
-    26 = 1000       # TCB1_PC (Başlangıç adresi)
-    27 = 1990       # TCB1_SP (Başlangıç SP'si)
+    26 = 1000       # TCB1_PC (Baslangic adresi)
+    27 = 1990       # TCB1_SP (Baslangic SP'si)
 
     # Thread 2 (ID=2)
     28 = 2          # TCB2_ID
     29 = 0          # TCB2_STATE (Ready)
-    30 = 2000       # TCB2_PC (Başlangıç adresi)
-    31 = 2990       # TCB2_SP (Başlangıç SP'si)
+    30 = 2000       # TCB2_PC (Baslangic adresi)
+    31 = 2990       # TCB2_SP (Baslangic SP'si)
 
-    # --- Geçici Hesaplama/Saklama Alanları (OS Kullanımı İçin) ---
-    70 = 0          # USER komutu için yeni PC'yi (iplik PC'si) tutar
-    71 = 0          # Karşılaştırma / TCB adresi için geçici değer
-    72 = 0          # Karşılaştırma / iplik ID'si / state için geçici değer
+    # --- Gecici Hesaplama/Saklama Alanlari (OS Kullanimi Icin) ---
+    70 = 0          # USER komutu icin yeni PC'yi (iplik PC'si) tutar
+    71 = 0          # Karsilastirma / TCB adresi icin gecici deger
+    72 = 0          # Karsilastirma / iplik ID'si / state icin gecici deger
     73 = 1          # Sabit 1
     74 = 2          # Sabit 2
     75 = 3          # Sabit 3 (Halted state)
     76 = 4          # TCB_SIZE (ID, State, PC, SP)
-    77 = 20         # TCB_START_ADDRESS (ilk TCB'nin başlangıç adresi - OS TCB'si)
+    77 = 20         # TCB_START_ADDRESS (ilk TCB'nin baslangic adresi - OS TCB'si)
     # TCB Offsetleri: ID_OFFSET=0, STATE_OFFSET=1, PC_OFFSET=2, SP_OFFSET=3
 
-    78 = 0          # CHECK_THREADS için t1_state geçici alanı
-    79 = 0          # CHECK_THREADS için t2_state geçici alanı
+    78 = 0          # CHECK_THREADS icin t1_state gecici alani
+    79 = 0          # CHECK_THREADS icin t2_state gecici alani
     80 = 0          # TCB1_STATE_ADDR (Hesaplanacak: 20 + 1*4 + 1 = 25)
     81 = 0          # TCB1_PC_ADDR (Hesaplanacak: 20 + 1*4 + 2 = 26)
     82 = 0          # TCB1_SP_ADDR (Hesaplanacak: 20 + 1*4 + 3 = 27)
@@ -62,13 +63,13 @@ Begin Data Section
     84 = 0          # TCB2_PC_ADDR (Hesaplanacak: 20 + 2*4 + 2 = 30)
     85 = 0          # TCB2_SP_ADDR (Hesaplanacak: 20 + 2*4 + 3 = 31)
 
-    # --- THREAD 1 Veri Alanı (1000-1999) ---
-    1050 = 111      # Thread 1'in yazdıracağı ilk değer
-    1051 = 112      # Thread 1'in yazdıracağı ikinci değer
+    # --- THREAD 1 Veri Alani (1000-1999) ---
+    1050 = 111      # Thread 1'in yazdiracagi ilk deger
+    1051 = 112      # Thread 1'in yazdiracagi ikinci deger
     1200 = 0
     1201 = 0
 
-    # --- THREAD 2 Veri Alanı (2000-2999) ---
+    # --- THREAD 2 Veri Alani (2000-2999) ---
     2050 = 221
     2051 = 222
     2200 = 0
@@ -78,29 +79,19 @@ End Data Section
 
 Begin Instruction Section
     #-----------------------------------------------------
-    # İŞLETİM SİSTEMİ KOMUTLARI (Başlangıç PC=200)
+    # ISLETIM SISTEMI KOMUTLARI (Baslangic PC=200)
     #-----------------------------------------------------
-    # --- OS Başlangıç ---
-    # TCB Adreslerini Hesapla ve Sakla (Çarpma olmadığı için manuel)
-    # TCB1 (ID=1): Base = 20 + 1*4 = 24
-200: SET 25, 80     # TCB1_STATE_ADDR = 25
-201: SET 26, 81     # TCB1_PC_ADDR = 26
-202: SET 27, 82     # TCB1_SP_ADDR = 27
-    # TCB2 (ID=2): Base = 20 + 2*4 = 28
-203: SET 29, 83     # TCB2_STATE_ADDR = 29
-204: SET 30, 84     # TCB2_PC_ADDR = 30
-205: SET 31, 85     # TCB2_SP_ADDR = 31
+    # --- OS Baslangic ---
+200: SET 0, 15      # current_running_thread_id = 0 (OS)
+201: SET 1, 16      # next_thread_to_run_id = 1
+202: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
+203: HLT            # OS Final HLT
 
-206: SET 0, 15      # current_running_thread_id = 0 (OS)
-207: SET 1, 16      # next_thread_to_run_id = 1 (İlk Thread 1 çalışsın)
-208: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
-209: HLT            # Tüm iplikler bittiğinde veya hata olursa buraya gelinir. OS_FINAL_HLT
-
-# --- Sistem Çağrısı İşleyicileri ---
+# --- Sistem Cagrisi Isleyicileri ---
     # SYSCALL_HLT Handler (memory[11]=300)
-    # HLT yapan ipliğin ID'si SYSCALL anında memory[15]'te (current_running_thread_id) idi.
-300: CPY 15, 72     # halted_thread_id = memory[15] (SYSCALL yapan ipliğin ID'si)
-301: SET 0, 15      # current_running_thread_id = 0 (OS kontrolü aldı)
+    # HLT yapan ipligin ID'si SYSCALL aninda memory[15]'te (current_running_thread_id) idi.
+300: CPY 15, 72     # halted_thread_id = memory[15] (SYSCALL yapan ipligin ID'si)
+301: SET 0, 15      # current_running_thread_id = 0 (OS kontrolu aldi)
 
     # Halted thread'in STATE'ini 'Halted' (3) yap.
     # temp_id (memory[70]) = halted_thread_id - 1 hesapla
@@ -116,119 +107,125 @@ Begin Instruction Section
 
     # IF (halted_thread_id == 1)
 310: SET 3, 25      # TCB1_STATE (memory[25]) = Halted (3)
-    # Her iki durumda da Scheduler'ı çağır
-312: CALL 600       # Bir sonraki ipliği çalıştır veya OS'yi HLT et (scheduler karar verir)
-313: HLT            # Güvenlik HLT'si (Scheduler'dan normalde dönülmez, USER ile ipliğe geçilir.
-                    # Eğer CALL 600 bir şekilde RET ile dönerse veya çalışacak iplik bulamazsa
-                    # ve HLT etmezse, burası son çare.)
-# YIELD Handler'a debug ekleyin:
-# YIELD Handler'a daha fazla debug ekleyin:
+    # Her iki durumda da Scheduler'i cagir
+312: CALL 600       # Bir sonraki ipligi calistir veya OS'yi HLT et (scheduler karar verir)
+313: HLT            # Guvenlik HLT'si
+
+# SYSCALL_YIELD Handler (memory[12]=400)
+399: SYSCALL_PRN 15   # Handler'a girmeden once "memory[15]" ne?
 400: CPY 15, 72     # yielded_thread_id = memory[15]
-401: SET 0, 15      # current_running_thread_id = 0 (OS kontrolü aldı)
+401: SET 0, 15      # current_running_thread_id = 0 (OS kontrolu aldi)
 402: CPY 2, 17      # saved_pc = memory[2] 
 403: CPY 1, 18      # saved_sp = memory[1]
 
 # EXTRA DEBUG
-404: SYSCALL_PRN 72   # yielded_thread_id yazdır
-405: SYSCALL_PRN 17   # saved_pc yazdır
-406: SYSCALL_PRN 15   # current_running_thread_id yazdır (0 olmalı)
+404: SYSCALL_PRN 72   # yielded_thread_id yazdir
+405: SYSCALL_PRN 17   # saved_pc yazdir
+406: SYSCALL_PRN 15   # current_running_thread_id yazdir (0 olmali)
 
-# Thread kontrolü
+# Thread kontrolu
 407: CPY 72, 70     # temp_id = yielded_thread_id
 408: ADD 70, -1     # temp_id = temp_id - 1 
-409: SYSCALL_PRN 70   # temp_id yazdır (debug)
-410: JIF 70, 425    # IF temp_id <= 0 (yani yielded_id == 1) GOTO TCB1_Save_Context
+409: SYSCALL_PRN 70   # temp_id yazdir (debug)
+410: JIF 70, 425    # IF temp_id <= 0 (yani yielded_id == 1 or 0 or less) GOTO TCB1_Save_Context
 
-    # ELSE (yielded_id == 2) - Thread 2'nin context'ini kaydet
-411: SYSCALL_PRN 30   # TCB2_PC eski değeri yazdır
+    # ELSE (yielded_id > 0, presumably 2 if not 1) - Thread 2'nin context'ini kaydet
+411: SYSCALL_PRN 30   # TCB2_PC eski degeri yazdir
 412: CPY 17, 30     # TCB2_PC = saved_pc
-413: SYSCALL_PRN 30   # TCB2_PC yeni değeri yazdır
+413: SYSCALL_PRN 30   # TCB2_PC yeni degeri yazdir
 414: CPY 18, 31     # TCB2_SP = saved_sp
 415: SET 0, 29      # TCB2_STATE = Ready (0)
 416: SET 1, 16      # next_thread_to_run_id = 1
 417: JIF 0, 430     # GOTO Scheduler
 
-    # TCB1_Save_Context (yielded_id == 1 ise buraya gelinir)
+    # TCB1_Save_Context (yielded_id was 1, or erroneously 0 or less)
 425: CPY 17, 26     # TCB1_PC = saved_pc
 426: CPY 18, 27     # TCB1_SP = saved_sp
 427: SET 0, 25      # TCB1_STATE = Ready (0)
 428: SET 2, 16      # next_thread_to_run_id = 2
 429: JIF 0, 430     # GOTO Scheduler
 
-    # Scheduler'ı çağır
+    # Scheduler'i cagir
 430: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
-431: HLT            # Güvenlik HLT'si
+431: HLT            # Guvenlik HLT'si
 
 # --- Alt Program: SCHEDULER_AND_RUN_THREAD (Adres 600) ---
 600: CALL 700       # CHECK_IF_ALL_THREADS_HALTED
-601: CPY 16, 71     # run_id_candidate = memory[16] → memory[71] (boş geçici alan)
+601: CPY 16, 71     # run_id_candidate = memory[16] -> memory[71] (bos gecici alan)
 
     # if run_id_candidate == 1
-602: CPY 71, 72     # run_id_candidate → memory[72]
+602: CPY 71, 72     # run_id_candidate -> memory[72]
 603: ADD 72, -1     # memory[72] = run_id_candidate - 1
-604: JIF 72, 640    # Eğer (run_id_candidate - 1) <= 0 (yani ID=1) ise 640'a git (T1 kontrol/yükle)
+604: JIF 72, 640    # Eger (run_id_candidate - 1) <= 0 (yani ID=1) ise 640'a git (T1 kontrol/yukle)
 
-    # ELSE (run_id_candidate == 2) -> Thread 2'yi kontrol et/yükle
-605: CPY 29, 72     # TCB2_STATE (memory[29]) → memory[72]
-606: JIF 72, 615    # Eğer TCB2_STATE <= 0 (READY) ise 615'e git (T2 Yükle)
-    # T2 Ready değilse (Blocked veya Halted ise), T1'i dene (next_id=1 yap)
+    # ELSE (run_id_candidate == 2) -> Thread 2'yi kontrol et/yukle
+605: CPY 29, 72     # TCB2_STATE (memory[29]) -> memory[72]
+606: JIF 72, 615    # Eger TCB2_STATE <= 0 (READY) ise 615'e git (T2 Yukle)
+    # T2 Ready degilse (Blocked veya Halted ise), T1'i dene (next_id=1 yap)
 607: SET 1, 16      # next_thread_to_run_id = 1
-608: JIF 0, 600     # Scheduler'ı en baştan tekrar çağır
+608: JIF 0, 600     # Scheduler'i en bastan tekrar cagir
 
-    # Thread 2'yi Yükle ve Çalıştır (Adres 615)
+    # Thread 2'yi Yukle ve Calistir (Adres 615)
 615: CPY 30, 0      # CPU_PC = TCB2_PC
 616: CPY 31, 1      # CPU_SP = TCB2_SP
 617: SET 2, 15      # current_running_thread_id = 2
-618: SET 1, 29      # TCB2_STATE (memory[29]) = Running (1)
-619: CPY 0, 70      # memory[70] = CPU_PC (Thread 2'nin PC'si)
-620: USER 70        # Thread 2'yi başlat
-621: HLT            # Güvenlik HLT'si
+618: SYSCALL_PRN 15 # DEBUG: memory[15] degerini kontrol et (2 olmali)
+619: SET 1, 29      # TCB2_STATE (memory[29]) = Running (1)
+620: CPY 0, 70      # memory[70] = CPU_PC (Thread 2'nin PC'si)
+621: USER 70        # Thread 2'yi baslat
+622: HLT            # Guvenlik HLT'si
 
-    # Thread 1'i kontrol et/yükle (Adres 640)
-640: CPY 25, 72     # TCB1_STATE (memory[25]) → memory[72]
-641: JIF 72, 650    # Eğer TCB1_STATE <= 0 (READY) ise 650'ye git (T1 Yükle)
-    # T1 Ready değilse, T2'yi dene (next_id=2 yap)
+    # Thread 1'i kontrol et/yukle (Adres 640)
+640: CPY 25, 72     # TCB1_STATE (memory[25]) -> memory[72]
+641: JIF 72, 650    # Eger TCB1_STATE <= 0 (READY) ise 650'ye git (T1 Yukle)
+    # T1 Ready degilse, T2'yi dene (next_id=2 yap)
 642: SET 2, 16      # next_thread_to_run_id = 2
-643: JIF 0, 600     # Scheduler'ı en baştan tekrar çağır
+643: JIF 0, 600     # Scheduler'i en bastan tekrar cagir
 
-    # Thread 1'i Yükle ve Çalıştır (Adres 650)
-650: CPY 26, 0      # CPU_PC = TCB1_PC
-651: CPY 27, 1      # CPU_SP = TCB1_SP
-652: SET 1, 15      # current_running_thread_id = 1
-653: SET 1, 25      # TCB1_STATE (memory[25]) = Running (1)
-654: CPY 0, 70      # memory[70] = CPU_PC (Thread 1'in PC'si)
-655: USER 70        # Thread 1'i başlat
-656: HLT            # Güvenlik HLT'si
-
+# Thread 1'i Yukle ve Calistir (Adres 650)
+650: CPY 26, 0      # CPU_PC = TCB1_PC (1000)
+651: SYSCALL_PRN 999 # DEBUG: 651 oncesi - buraya geldigi kaniti
+652: CPY 27, 1      # CPU_SP = TCB1_SP (1990)
+653: SYSCALL_PRN 888 # DEBUG: 652 sonrasi - buraya geldi mi?
+654: SET 1, 15      # current_running_thread_id = 1 (CORRECTED from 19 to 15)
+655: SYSCALL_PRN 15 # DEBUG: memory[15] degerini kontrol et (CORRECTED from 19 to 15)
+656: SET 1, 25      # TCB1_STATE = Running
+657: CPY 0, 70      # memory[70] = CPU_PC
+658: USER 70        # Thread 1'i baslat
+659: HLT            # Guvenlik HLT'si
 
 # --- Alt Program: CHECK_IF_ALL_THREADS_HALTED (Adres 700) ---
-700: CPY 25, 78     # t1_state = TCB1_STATE → memory[78] (çakışma olmasın)
-701: CPY 29, 79     # t2_state = TCB2_STATE → memory[79] (çakışma olmasın)
+700: CPY 25, 78     # t1_state = TCB1_STATE -> memory[78] (cakisma olmasin)
+701: CPY 29, 79     # t2_state = TCB2_STATE -> memory[79] (cakisma olmasin)
 702: ADD 78, -3     # t1_state_check = t1_state - 3
-703: JIF 78, 710    # T1_STATE != 3 ise RET'e git
-704: ADD 79, -3     # t2_state_check = t2_state - 3  
-705: JIF 79, 710    # T2_STATE != 3 ise RET'e git
-706: JIF 0, 209     # İkisi de Halted (STATE=3), OS'yi HLT et
-710: RET            # En az biri Ready/Running, scheduler devam etsin
+703: JIF 78, 710    # If t1_state <= 3, JUMP to RET (Still potentially flawed logic, but not the primary bug)
+704: ADD 79, -3     # t2_state_check = t2_state - 3 
+705: JIF 79, 710    # If t2_state <= 3, JUMP to RET (Still potentially flawed logic)
+706: JIF 0, 203     # Ikisi de Halted (according to flawed JIFs), OS'yi HLT et (CORRECTED target to 203)
+710: RET            # En az biri Ready/Running (or JIF logic error made it come here), scheduler devam etsin
 
     #-----------------------------------------------------
-    # THREAD 1 KOMUTLARI (Başlangıç: 1000)
+    # THREAD 1 KOMUTLARI (Baslangic: 1000)
     #-----------------------------------------------------
-1000: SET 111, 1050
-1001: SYSCALL_PRN 1050
-1002: SYSCALL_YIELD
-1003: SET 112, 1051
-1004: SYSCALL_PRN 1051
-1005: SYSCALL_HLT
+1000: SYSCALL_PRN 15 # DEBUG: Thread 1 baslarken current_thread_id (1 olmali)
+1001: SET 111, 1050
+1002: SYSCALL_PRN 1050
+1003: SYSCALL_YIELD
+1004: SYSCALL_PRN 15 # DEBUG: YIELD sonrasi geri dondugunde (1 olmali)
+1005: SET 112, 1051
+1006: SYSCALL_PRN 1051
+1007: SYSCALL_HLT
 
     #-----------------------------------------------------
-    # THREAD 2 KOMUTLARI (Başlangıç: 2000)
+    # THREAD 2 KOMUTLARI (Baslangic: 2000)
     #-----------------------------------------------------
-2000: SET 221, 2050
-2001: SYSCALL_PRN 2050
-2002: SYSCALL_YIELD
-2003: SET 222, 2051
-2004: SYSCALL_PRN 2051
-2005: SYSCALL_HLT
+2000: SYSCALL_PRN 15 # DEBUG: Thread 2 baslarken current_thread_id (2 olmali)
+2001: SET 221, 2050
+2002: SYSCALL_PRN 2050
+2003: SYSCALL_YIELD
+2004: SYSCALL_PRN 15 # DEBUG: YIELD sonrasi geri dondugunde (2 olmali)
+2005: SET 222, 2051
+2006: SYSCALL_PRN 2051
+2007: SYSCALL_HLT
 
 End Instruction Section

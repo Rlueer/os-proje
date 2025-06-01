@@ -1,0 +1,29 @@
+Begin Data Section
+0 = 200
+1 = 2990
+2 = 0
+11 = 0      # HLT handler yerine dummy
+12 = 400    # YIELD handler adresi
+15 = 2      # current_running_thread_id
+2050 = 221
+2051 = 222
+30 = 2000   # TCB2_PC
+31 = 2990   # TCB2_SP
+End Data Section
+
+Begin Instruction Section
+200: CALL 650      # doğrudan scheduler benzeri 650’ye atla
+650: CPY 30, 0     # CPU_PC = TCB2_PC
+651: CPY 31, 1     # CPU_SP = TCB2_SP
+652: SET 2, 15     # current_running_thread_id = 2
+653: SET 25, 80    # TCB1_STATE_ADDR = dummy
+654: USER 70       # PC=2000
+655: HLT
+2000: SYSCALL_PRN 15
+2001: SYSCALL_PRN 2050
+2002: SYSCALL_YIELD
+2003: HLT
+400: SYSCALL_PRN 15
+401: SYSCALL_PRN 2
+402: HLT
+End Instruction Section
