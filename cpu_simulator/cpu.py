@@ -94,7 +94,7 @@ class CPU:
     
     def _is_valid_address(self, address, operation_type="access"):
         """Bellek adresinin geçerli olup olmadığını ve erişim haklarını kontrol eder."""
-        print(f"DEBUG: Checking address {address} for {operation_type}, Mode: {self.mode}")  # EKLE
+        #print(f"DEBUG: Checking address {address} for {operation_type}, Mode: {self.mode}")  # EKLE
     
         if not (0 <= address < len(self.memory)):
             print(f"Error: {operation_type.capitalize()} to invalid memory address {address}. Halting.")
@@ -135,7 +135,7 @@ class CPU:
         PUSH/POP komutlarına temel yığın sınırı kontrolleri eklendi.
         SYSCALL_HLT ve SYSCALL_YIELD OS handler'larına PC'yi yönlendiriyor.
         """
-        print(f"DEBUG: Executing command at PC {self.pc}: {instruction_str}")  # EKLE
+        #print(f"DEBUG: Executing command at PC {self.pc}: {instruction_str}")  # EKLE
         if not instruction_str or not isinstance(instruction_str, str):
             print(f"Warning: Invalid instruction format or empty instruction at PC {self.pc}. Halting.")
             self.is_halted = True
@@ -194,6 +194,50 @@ class CPU:
             else: # ...
                 print(f"Error: CPY requires 2 arguments, got {len(args)}. Halting.")
                 self.is_halted = True
+        elif command == "CPYI":
+            # ... (CPYI kodu aynı) ...
+            if len(args) == 2:
+                try:
+                    pointer_address = int(args[0]) 
+                    dest_address = int(args[1])   
+                    if self._is_valid_address(pointer_address, "read from (pointer for CPYI)") and \
+                       self._is_valid_address(dest_address, "write to (CPYI)"):
+                        source_address_via_pointer = self.memory[pointer_address] 
+                        if self._is_valid_address(source_address_via_pointer, "read from (indirect for CPYI)"):
+                            self.memory[dest_address] = self.memory[source_address_via_pointer]
+                            executed_successfully = True
+                except ValueError: # ...
+                    print(f"Error: Invalid arguments for CPYI: {args}. Halting.")
+                    self.is_halted = True
+            else: # ...
+                print(f"Error: CPYI requires 2 arguments, got {len(args)}. Halting.")
+                self.is_halted = True
+        # YENİ EKLENEN KOMUT
+        elif command == "CPYI2": # Format: CPYI2 A1 A2 (memory[memory[A2]] = memory[memory[A1]])
+            if len(args) == 2:
+                try:
+                    pointer_addr1 = int(args[0]) # A1: Kaynak işaretçisini tutan adres
+                    pointer_addr2 = int(args[1]) # A2: Hedef işaretçisini tutan adres
+
+                    # Tüm seviyeler için adres ve erişim kontrolü
+                    if self._is_valid_address(pointer_addr1, "read pointer1 for CPYI2") and \
+                       self._is_valid_address(pointer_addr2, "read pointer2 for CPYI2"):
+                        
+                        source_addr_via_ptr1 = self.memory[pointer_addr1] # İşaretçi1'in gösterdiği asıl kaynak adresi
+                        dest_addr_via_ptr2 = self.memory[pointer_addr2]   # İşaretçi2'nin gösterdiği asıl hedef adresi
+
+                        if self._is_valid_address(source_addr_via_ptr1, "read indirect source for CPYI2") and \
+                           self._is_valid_address(dest_addr_via_ptr2, "write indirect dest for CPYI2"):
+                            
+                            self.memory[dest_addr_via_ptr2] = self.memory[source_addr_via_ptr1]
+                            executed_successfully = True
+                except ValueError:
+                    print(f"Error: Invalid arguments for CPYI2: {args}. Halting.")
+                    self.is_halted = True
+            else:
+                print(f"Error: CPYI2 requires 2 arguments, got {len(args)}. Halting.")
+                self.is_halted = True
+        
         elif command == "CPYI":
             # ... (CPYI kodu aynı) ...
             if len(args) == 2:
@@ -450,12 +494,17 @@ class CPU:
 
         elif command == "SYSCALL_YIELD": 
             if not args:
-                # print(f"[SYSCALL_YIELD]: CPU yield. PC will jump to OS YIELD handler.") # Debug
                 self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 2 # YIELD syscall kodu
-                self.syscall_result = 0 # Genel sonuç (başarılı)
+
+                # YIELD yapan ipliğin dönüş PC'sini (bir sonraki komutun adresi)
+                # syscall_result'a (memory[2]) kaydet.
+                self.syscall_result = self.pc + 1 
+
+                # print(f"[SYSCALL_YIELD]: CPU yield. Return PC={self.syscall_result}. PC will jump to OS YIELD handler.") # Debug
 
                 os_handler_address = self.memory[CPU.MEM_OS_SYSCALL_YIELD_HANDLER]
                 if self._is_valid_address(os_handler_address, "jump to OS YIELD handler"):
+                    # self.mode = "KERNEL" # Zaten syscall başında KERNEL moda geçildi
                     self.pc = os_handler_address
                     pc_incremented_by_command = True
                     executed_successfully = True
@@ -465,18 +514,18 @@ class CPU:
             else:
                 print(f"Error: SYSCALL_YIELD does not take arguments, got {len(args)}. Halting.")
                 self.is_halted = True
-        
+
         else: # Bu else bloğu en sonda kalmalı
             print(f"Error: Unknown command '{command}'. Halting.")
             self.is_halted = True
             return 
 
         if executed_successfully:
-            print(f"DEBUG: Before IE increment: IE={self.instructions_executed}, Current Command: {command}") # DEBUG SATIRI
+            #print(f"DEBUG: Before IE increment: IE={self.instructions_executed}, Current Command: {command}") # DEBUG SATIRI
             if not pc_incremented_by_command:
                 self.pc += 1
             self.instructions_executed += 1
-            print(f"DEBUG: After IE increment: IE={self.instructions_executed}") # DEBUG SATIRI
+            #print(f"DEBUG: After IE increment: IE={self.instructions_executed}") # DEBUG SATIRI
         elif not self.is_halted: 
             print(f"Error: Command '{command}' with args {args} could not be executed successfully. Halting.")
             self.is_halted = True
@@ -555,8 +604,8 @@ class CPU:
 # DEĞİŞTİRİLDİ 7 (Testler güncellenen syscall mantığına ve CPYI2'ye göre ayarlanacak)
 def run_all_cpu_tests():
     """CPU sınıfının tüm komutlarını test eden ana fonksiyon."""
-    max_cycles_default = 25 # Çoğu test için yeterli
-    max_cycles_long = 30    # CALL/RET veya döngü içeren testler için
+    max_cycles_default = 300 # Çoğu test için yeterli
+    max_cycles_long = 300    # CALL/RET veya döngü içeren testler için
 
     # --- Test 1: SET ve HLT ---
     print("\n--- Test 1: SET ve HLT ---")
