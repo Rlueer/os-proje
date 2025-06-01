@@ -56,6 +56,12 @@ def main():
         print(f"  Program Sayacı (PC): {my_cpu.pc}")
         print(f"  Yığın İşaretçisi (SP): {my_cpu.sp}")
         print(f"  Sistem Çağrısı Sonucu: {my_cpu.syscall_result}")
+        print(f"\nDEBUG - Kritik Memory Adresleri:")
+        print(f"  memory[17] (saved_pc): {my_cpu.memory[17]}")
+        print(f"  memory[30] (TCB2_PC): {my_cpu.memory[30]}")
+        print(f"  memory[2] (syscall_result): {my_cpu.memory[2]}")
+        print(f"  memory[15] (current_thread_id): {my_cpu.memory[15]}")
+        print(f"  memory[16] (next_thread_id): {my_cpu.memory[16]}")
         print(f"  OS Sistem Çağrısı Tipi: {my_cpu.memory[CPU.MEM_OS_SYSCALL_TYPE]}") # OS syscall tipini de yazdıralım
 
         # İsteğe bağlı: Belleğin belirli bir kısmını dök

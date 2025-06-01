@@ -185,6 +185,9 @@ class CPU:
                        self._is_valid_address(dest_address, "write to"):
                         self.memory[dest_address] = self.memory[source_address]
                         executed_successfully = True
+                            # DÜZELTME: Eğer hedef adres PC ise, PC manuel olarak değiştirilmiş demektir
+                        if dest_address == CPU.REG_PC:  # PC = memory[0]
+                            pc_incremented_by_command = True
                 except ValueError: # ...
                     print(f"Error: Invalid arguments for CPY: {args}. Halting.")
                     self.is_halted = True
