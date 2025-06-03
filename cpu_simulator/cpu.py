@@ -135,7 +135,7 @@ class CPU:
         PUSH/POP komutlarına temel yığın sınırı kontrolleri eklendi.
         SYSCALL_HLT ve SYSCALL_YIELD OS handler'larına PC'yi yönlendiriyor.
         """
-        #print(f"DEBUG: Executing command at PC {self.pc}: {instruction_str}")  # EKLE
+        print(f"[DECODE_EXECUTE] PC={self.pc} -> '{instruction_str}' Mode={self.mode}")
         if not instruction_str or not isinstance(instruction_str, str):
             print(f"Warning: Invalid instruction format or empty instruction at PC {self.pc}. Halting.")
             self.is_halted = True
@@ -165,6 +165,8 @@ class CPU:
                     value_to_set = int(args[0]) 
                     memory_address = int(args[1])
                     if self._is_valid_address(memory_address, "write to"):
+                        print(f"[SET] memory[{memory_address}] = {value_to_set}")
+
                         self.memory[memory_address] = value_to_set
                         executed_successfully = True
                         if memory_address == CPU.REG_PC: # Eğer PC'ye yazılıyorsa
@@ -183,6 +185,8 @@ class CPU:
                     dest_address = int(args[1])
                     if self._is_valid_address(source_address, "read from") and \
                        self._is_valid_address(dest_address, "write to"):
+                        print(f"[CPY] memory[{dest_address}] = memory[{source_address}] ({self.memory[dest_address]})")
+
                         self.memory[dest_address] = self.memory[source_address]
                         executed_successfully = True
                             # DÜZELTME: Eğer hedef adres PC ise, PC manuel olarak değiştirilmiş demektir
@@ -241,49 +245,6 @@ class CPU:
                 print(f"Error: CPYI2 requires 2 arguments, got {len(args)}. Halting.")
                 self.is_halted = True
         
-        elif command == "CPYI":
-            # ... (CPYI kodu aynı) ...
-            if len(args) == 2:
-                try:
-                    pointer_address = int(args[0]) 
-                    dest_address = int(args[1])   
-                    if self._is_valid_address(pointer_address, "read from (pointer for CPYI)") and \
-                       self._is_valid_address(dest_address, "write to (CPYI)"):
-                        source_address_via_pointer = self.memory[pointer_address] 
-                        if self._is_valid_address(source_address_via_pointer, "read from (indirect for CPYI)"):
-                            self.memory[dest_address] = self.memory[source_address_via_pointer]
-                            executed_successfully = True
-                except ValueError: # ...
-                    print(f"Error: Invalid arguments for CPYI: {args}. Halting.")
-                    self.is_halted = True
-            else: # ...
-                print(f"Error: CPYI requires 2 arguments, got {len(args)}. Halting.")
-                self.is_halted = True
-        # YENİ EKLENEN KOMUT
-        elif command == "CPYI2": # Format: CPYI2 A1 A2 (memory[memory[A2]] = memory[memory[A1]])
-            if len(args) == 2:
-                try:
-                    pointer_addr1 = int(args[0]) # A1: Kaynak işaretçisini tutan adres
-                    pointer_addr2 = int(args[1]) # A2: Hedef işaretçisini tutan adres
-
-                    # Tüm seviyeler için adres ve erişim kontrolü
-                    if self._is_valid_address(pointer_addr1, "read pointer1 for CPYI2") and \
-                       self._is_valid_address(pointer_addr2, "read pointer2 for CPYI2"):
-                        
-                        source_addr_via_ptr1 = self.memory[pointer_addr1] # İşaretçi1'in gösterdiği asıl kaynak adresi
-                        dest_addr_via_ptr2 = self.memory[pointer_addr2]   # İşaretçi2'nin gösterdiği asıl hedef adresi
-
-                        if self._is_valid_address(source_addr_via_ptr1, "read indirect source for CPYI2") and \
-                           self._is_valid_address(dest_addr_via_ptr2, "write indirect dest for CPYI2"):
-                            
-                            self.memory[dest_addr_via_ptr2] = self.memory[source_addr_via_ptr1]
-                            executed_successfully = True
-                except ValueError:
-                    print(f"Error: Invalid arguments for CPYI2: {args}. Halting.")
-                    self.is_halted = True
-            else:
-                print(f"Error: CPYI2 requires 2 arguments, got {len(args)}. Halting.")
-                self.is_halted = True
         elif command == "ADD":
             # ... (ADD kodu aynı) ...
             if len(args) == 2:
@@ -410,6 +371,8 @@ class CPU:
 
                     self.sp -= 1 # Yığın aşağı doğru büyür
                     if self._is_valid_address(self.sp, "write return address to stack for CALL"):
+                        print(f"[CALL] SP={self.sp+1} -> SP={self.sp}, Return Addr={return_address}, Jump To={jump_target_address}")
+
                         self.memory[self.sp] = return_address
                         self.pc = jump_target_address
                         pc_incremented_by_command = True
@@ -427,13 +390,16 @@ class CPU:
 
         elif command == "RET": # Format: RET (Yığından dönüş adresini çek, PC'yi ona ayarla)
             if not args: # Argüman almaz
+                print(f"[RET] Trying to pop return address from SP={self.sp}")
                 if self._is_valid_address(self.sp, "read return address from stack for RET"):
                     return_address = self.memory[self.sp]
                     self.sp += 1 # SP artar
+                    print(f"[RET] Returning to address {return_address}, SP={self.sp}")
                     self.pc = return_address
                     pc_incremented_by_command = True
                     executed_successfully = True
-                # else: SP geçersizse _is_valid_address içinde durdurulur.
+                else:
+                    print("[RET] Invalid SP address!")
             else:
                 print(f"Error: RET does not take arguments, got {len(args)}. Halting.")
                 self.is_halted = True
@@ -443,29 +409,29 @@ class CPU:
                 try:
                     address_containing_new_pc = int(args[0])
                     if self._is_valid_address(address_containing_new_pc, "read new PC address for USER"):
+                        print(f"--------------------- USER MODE'a geciliyor (Thread ID: {self.memory[15]})")
                         new_pc_value = self.memory[address_containing_new_pc]
-                        # Yeni PC değerinin de fetch için geçerli olup olmadığını _fetch sırasında kontrol edilecek.
                         self.mode = "USER"
                         self.pc = new_pc_value
                         pc_incremented_by_command = True
                         executed_successfully = True
-                        print(f"Switched to USER mode. New PC = {self.pc}")
-                    # else: Adres geçersizse _is_valid_address içinde durdurulur.
+                        print(f"Switched to USER mode. New PC = {self.pc} (hedef adres: {address_containing_new_pc} iceriginden)")
+                    # else: Adres gecersizse _is_valid_address icinde durdurulur.
                 except ValueError:
                     print(f"Error: Invalid argument for USER: {args}. Halting.")
                     self.is_halted = True
             else:
                 print(f"Error: USER requires 1 argument, got {len(args)}. Halting.")
                 self.is_halted = True
-
-         # YENİ EKLENEN KOMUTLAR (Sistem Çağrıları)
+        
         elif command == "SYSCALL_PRN": 
             if len(args) == 1:
                 try:
                     address_to_print = int(args[0])
                     if self._is_valid_address(address_to_print, "read for SYSCALL_PRN"):
                         value_to_print = self.memory[address_to_print]
-                        print(f"[SYSCALL_PRN Output]: {value_to_print}")
+                        print("--------------------------------- KERNEL MODE'a geçildi (System Call)")
+                        print(f"[SYSCALL_PRN] memory[{address_to_print}] = {value_to_print}")
                         self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 0 # PRN syscall kodu
                         self.syscall_result = 100 # Bloklanacak komut sayısı (OS'ye bilgi)
                         executed_successfully = True
@@ -485,6 +451,8 @@ class CPU:
                 
                 os_handler_address = self.memory[CPU.MEM_OS_SYSCALL_HLT_HANDLER]
                 if self._is_valid_address(os_handler_address, "jump to OS HLT handler"):
+                    print("--------------------------------- KERNEL MODE'a geçildi (System Call)")
+                    
                     self.pc = os_handler_address
                     pc_incremented_by_command = True
                     executed_successfully = True
@@ -496,6 +464,8 @@ class CPU:
                 self.is_halted = True
 
         elif command == "SYSCALL_YIELD": 
+            print("--------------------------------- KERNEL MODE'a geçildi (System Call)")
+
             print(f"[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]={self.memory[15]}")
             if not args:
                 self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 2 # YIELD syscall kodu
@@ -540,8 +510,11 @@ class CPU:
         Tek bir CPU döngüsünü çalıştırır: Fetch, Decode, Execute.
         """
         if not self.is_halted:
+            print()
+            print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15] if self.mode == 'USER' else 'OS'}")
             instruction_str = self._fetch()
             if instruction_str and not self.is_halted: # Fetch sırasında hata olup durdurulmadıysa
+                print(f"[RUN_CYCLE] Executing: {instruction_str}")
                 self._decode_execute(instruction_str)
         # else:
             # print("CPU is halted. Cannot run cycle.") # Debug

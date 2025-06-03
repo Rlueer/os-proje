@@ -153,7 +153,7 @@ Begin Instruction Section
 600: CALL 700       # CHECK_IF_ALL_THREADS_HALTED
 601: CPY 16, 71     # run_id_candidate = memory[16] -> memory[71] (bos gecici alan)
 
-    # if run_id_candidate == 1
+    # if run_id_candidate == 1     ## enesin bahsettigi çıkarma problemi ###############
 602: CPY 71, 72     # run_id_candidate -> memory[72]
 603: ADD 72, -1     # memory[72] = run_id_candidate - 1
 604: JIF 72, 640    # Eger (run_id_candidate - 1) <= 0 (yani ID=1) ise 640'a git (T1 kontrol/yukle)
