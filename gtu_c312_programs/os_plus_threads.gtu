@@ -213,31 +213,60 @@ Begin Instruction Section
 
 710: RET            # En az biri Ready/Running/Blocked (State < 3)
 
+#-----------------------------------------------------
+    # THREAD 1 KOMUTLARI (Baslangic: 1000) - Detaylandirilmis Hali
     #-----------------------------------------------------
-    # THREAD 1 KOMUTLARI (Baslangic: 1000)
-    #-----------------------------------------------------
-1000: SYSCALL_PRN 15     # current_thread_id → beklenen: 1
-1001: SYSCALL_PRN 1      # SP → kontrol amaçlı
-1002: SYSCALL_PRN 0      # PC → kontrol amaçlı
-1003: SET 111, 1050
-1004: SYSCALL_PRN 1050   # 111 bekleniyor
-1005: SYSCALL_YIELD
-1006: SYSCALL_PRN 15     # Geri dönüldüğünde current_thread_id tekrar 1 mi?
-1007: SYSCALL_PRN 1      # SP kontrol
-1008: SET 112, 1051
-1009: SYSCALL_PRN 1051   # 112 bekleniyor
-1010: SYSCALL_HLT
+1000: SYSCALL_PRN 15         # DEBUG: Thread 1 baslarken current_thread_id (1 olmali)
+1001: SYSCALL_PRN 1          # DEBUG: Baslangic SP kontrolu
+1002: SYSCALL_PRN 0          # DEBUG: Baslangic PC kontrolu (o anki PC'yi basar)
+1003: CPY 1052, 1053         # Dongu sayacini baslat (mem[1053] = mem[1052] yani 2)
 
+    # LOOP_START_T1 (Adres 1004)
+1004: SYSCALL_PRN 15         # DEBUG: Dongu icinde ID (1 olmali)
+1005: SYSCALL_PRN 1053         # Dongu sayacinin anlik degerini yazdir
+1006: SET 111, 1050          # (Eger veri bolumunde zaten ayarliysa gereksiz olabilir, ama emin olmak icin)
+1007: SYSCALL_PRN 1050         # Unique deger 1'i yazdir (111)
+1008: SYSCALL_YIELD          # Ilk YIELD (dongu icinde)
+
+    # AFTER_FIRST_YIELD_T1 (Donus adresi burasi olmali: 1008 + 1 = 1009)
+1009: SYSCALL_PRN 15         # DEBUG: Ilk YIELD sonrasi ID kontrolu (1 olmali)
+1010: SET 112, 1051          # Unique deger 2'yi ayarla
+1011: SYSCALL_PRN 1051         # Unique deger 2'yi yazdir (112)
+1012: ADD 1053, -1           # Dongu sayacini azalt (mem[1053]--)
+
+    # Dongu devam etmeli mi kontrolu (eger mem[1053] > 0 ise devam)
+1013: JIF 1053, 1016         # Eger sayac (mem[1053]) <= 0 ise, LOOP_EXIT_T1'e (adres 1016) atla
+1014: JIF 1054, 1004         # Kosulsuz olarak LOOP_START_T1'e (adres 1004) geri don (cunku mem[1054]=0)
+1015: HLT                    # Guvenlik HLT'si (buraya ulasilmamali)
+
+    # LOOP_EXIT_T1 (Adres 1016)
+1016: SYSCALL_PRN 15         # DEBUG: Dongu sonrasi son ID kontrolu (1 olmali)
+1017: SYSCALL_HLT            # Thread 1 sonlaniyor
+#-----------------------------------------------------
+    # THREAD 2 KOMUTLARI (Baslangic: 2000) - Uzatilmis ve Farklilastirilmis Hali
     #-----------------------------------------------------
-    # THREAD 2 KOMUTLARI (Baslangic: 2000)
-    #-----------------------------------------------------
-2000: SYSCALL_PRN 15 # DEBUG: Thread 2 baslarken current_thread_id (2 olmali)
-2001: SET 221, 2050
-2002: SYSCALL_PRN 2050
-2003: SYSCALL_YIELD
-2004: SYSCALL_PRN 15 # DEBUG: YIELD sonrasi geri dondugunde (2 olmali)
-2005: SET 222, 2051
-2006: SYSCALL_PRN 2051
-2007: SYSCALL_HLT
+2000: SYSCALL_PRN 15         # DEBUG: Thread 2 baslarken current_thread_id (2 olmali)
+2001: CPY 2052, 2053         # Dongu sayacini baslat (mem[2053] = mem[2052] yani 3)
+
+    # LOOP_START_T2 (Adres 2002)
+2002: SYSCALL_PRN 15         # DEBUG: Dongu icinde ID (2 olmali)
+2003: SYSCALL_PRN 2053         # Dongu sayacinin anlik degerini yazdir
+2004: SYSCALL_PRN 2050         # Unique deger 1'i yazdir (221)
+2005: ADD 2053, -1           # Dongu sayacini azalt (mem[2053]--)
+    # Dongu devam etmeli mi kontrolu (eger mem[2053] > 0 ise devam)
+    # JIF, <=0 ise atlar. Yani mem[2053] <=0 ise donguden cik (2009'a atla).
+2006: JIF 2053, 2009         # Eger sayac (mem[2053]) <= 0 ise, LOOP_EXIT_T2'ye (adres 2009) atla
+2007: JIF 2054, 2002         # Kosulsuz olarak LOOP_START_T2'ye (adres 2002) geri don (cunku mem[2054]=0)
+2008: HLT                    # Guvenlik HLT'si (buraya ulasilmamali)
+
+    # LOOP_EXIT_T2 (Adres 2009)
+2009: SYSCALL_PRN 15         # DEBUG: Dongu sonrasi ID kontrolu (2 olmali)
+2010: SYSCALL_YIELD          # Isletim sistemine kontrolu birak
+
+    # AFTER_YIELD_T2 (Donus adresi burasi olmali: 2010 + 1 = 2011)
+2011: SYSCALL_PRN 15         # DEBUG: YIELD sonrasi geri dondugunde ID kontrolu (2 olmali)
+2012: SET 222, 2051          # Unique deger 2'yi ayarla
+2013: SYSCALL_PRN 2051         # Unique deger 2'yi yazdir (222)
+2014: SYSCALL_HLT            # Thread 2 sonlaniyor
 
 End Instruction Section
