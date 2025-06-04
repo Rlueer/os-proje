@@ -135,7 +135,8 @@ class CPU:
         PUSH/POP komutlarına temel yığın sınırı kontrolleri eklendi.
         SYSCALL_HLT ve SYSCALL_YIELD OS handler'larına PC'yi yönlendiriyor.
         """
-        print(f"[DECODE_EXECUTE] PC={self.pc} -> '{instruction_str}' Mode={self.mode}")
+        print(f"[DECODE_EXECUTE] PC={self.pc} -> '{instruction_str}' Mode={self.mode} | SysRes={self.syscall_result} | IE={self.instructions_executed}")
+
         if not instruction_str or not isinstance(instruction_str, str):
             print(f"Warning: Invalid instruction format or empty instruction at PC {self.pc}. Halting.")
             self.is_halted = True
@@ -517,14 +518,20 @@ class CPU:
                 tcb_range = range(41, 47)
             else:
                 tcb_range = []
+            
 
-            print(f"------ [TCB Snapshot for Thread ID {thread_id}] ------")
-            for addr in tcb_range:
-               print(f"mem[{addr}]={self.memory[addr]}", end=" | ")
-            print("")
-            value_at_sp = "N/A" # Eger SP gecersiz bir adres ise veya yigin bos ise
-            if 0 <= self.sp < len(self.memory): # SP gecerli bir adres mi diye kontrol et
-                value_at_sp = self.memory[self.sp]
+            for base in [20, 30, 40]:  # TCB0, TCB1, TCB2
+                tcb_id = self.memory[base]
+                values = [self.memory[base + offset] for offset in range(7)]
+                print(f"mem[{base}-{base+6}] (ID={tcb_id}):", " | ".join(f"{v}" for v in values))
+
+            #print(f"------ [TCB Snapshot for Thread ID {thread_id}] ------")
+            #for addr in tcb_range:
+               #print(f"mem[{addr}]={self.memory[addr]}", end=" | ")
+            #print("")
+            #value_at_sp = "N/A" # Eger SP gecersiz bir adres ise veya yigin bos ise
+            #if 0 <= self.sp < len(self.memory): # SP gecerli bir adres mi diye kontrol et
+                #value_at_sp = self.memory[self.sp]
             #print(f"IE: {self.instructions_executed} | Next PC: {self.pc} | Mode: {self.mode} | SP: {self.sp} (ValAtSP: {value_at_sp}) | Syscall Result: {self.syscall_result}")
         
         elif not self.is_halted: 
@@ -538,7 +545,7 @@ class CPU:
         """
         if not self.is_halted:
             print()
-            print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
+            #print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
             instruction_str = self._fetch()
             if instruction_str and not self.is_halted: # Fetch sırasında hata olup durdurulmadıysa
                 self._decode_execute(instruction_str)

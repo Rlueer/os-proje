@@ -236,46 +236,37 @@ Begin Instruction Section
 # THREAD BLOCK KONTROLÜ CHECK_IF_THREAD_CAN_BE_UNBLOCKED
 
 # --- PRN ile Block olan threadleri kontrol et --- 
-#---PROBLEM BURADA  THREAD HALT ETMİS HALA İLERLİYO READY VERİO
+
+# Şimdi ilk kontrol: Halted mi?
+570: CPY 31, 72        # tekrar state al
+571: ADD 72, -2        # STATE - 2
+572: JIF 72, 574       # eğer state == 3 → T2'ye geç #jif e girip   574 gitmiyorsa  halteddir
+573: JIF 15, 580       #  EĞER HALTEDSE YANİ 3 SE 3-2= 1 1 SE 574 E GİTMEZ 573 DEVAM EDER 573 DE OTOMATİK 580 T2 GİDER   
+                       # 15 DE OSDA OLDUGUMUZ İCİN 0 ZATEN 
+574: CPY 3, 70        # current_IE → mem[70]
+575: CPY 34, 71       # TCB1_StartingIE → mem[71]
+576: SUBI 70, 71       # fark = current_IE - (unblock_IE)
+577: JIF 71, 580      #  fark <= 0 ise → thread1 hala block
+578: SET 0, 31     # TCB1_STATE = Ready
+579: SET 0, 34     # unblock_IE bilgisini sıfırla (opsiyonel ama temiz olur)
 
 
+# Şimdi ilk kontrol: Halted mi?
+580: CPY 41, 72        # tekrar state al
+581: ADD 72, -2
+582: JIF 72, 584       # eğer state == 3 → T2'ye geç
+583: RET               # jife girmiyorsa halteddir
 
-570: CPY 3, 70        # current_IE → mem[70]
-571: CPY 35, 71       # TCB1_StartingIE → mem[71]
-572: ADD 71, 100      # startingIE + 100 → mem[71]
-573: SUBI 3, 71       # fark = current_IE - (startingIE + 100)
-574: JIF 70, 580      #  fark <= 0 ise → thread1 hala block
-
-
-# Şimdi ek kontrol: Halted mi?
-575: CPY 31, 72        # tekrar state al
-576: ADD 72, -2
-577: JIF 72, 589       # eğer state == 3 → T2'ye geç
-578: RET    #jif e girmiyorsa halteddir
-
-
+#SUBI  SUBI 70, 71  70 DEN 71 CİKARİYO SONRA 71 E KOYUYO 
 # --- T2 kontrolü ---
-580: CPY 3, 70        # current_IE → mem[70]
-581: CPY 45, 71       # TCB2_StartingIE → mem[71]
-582: ADD 71, 100      # startingIE + 100 → mem[71]
-583: SUBI 3, 71      # fark = current_IE - (startingIE + 100)
-584: JIF 70, 591     #  fark <= 0 ise → thread2 hala block
-
-
-# Şimdi ek kontrol: Halted mi?
-585: CPY 41, 72        # tekrar state al
-586: ADD 72, -2
-587: JIF 72, 591       # eğer state == 3 → T2'ye geç
-588: RET               # jife girmiyorsa halteddir
-
-
-# T1 artık ready olabilir
-589: SET 0, 31          # TCB1_STATE = Ready (yalnızca halt olmayanlar için)
+584: CPY 3, 70        # current_IE → mem[70]
+585: CPY 44, 71       # TCB2_StartingIE → mem[71]
+586: SUBI 70, 71      # fark = current_IE - (startingIE + 100) 
+587: JIF 71, 590     #  fark <= 0 ise → thread2 hala block
+588: SET 0, 41     # TCB2_STATE = Ready
+589: SET 0, 44     # unblock_IE bilgisini sıfırla (opsiyonel ama temiz olur)
 590: RET
 
-# T2 artık ready olabilir
-591: SET 0, 41        # TCB2_STATE = Ready
-592: RET
 
 
 
@@ -284,7 +275,7 @@ Begin Instruction Section
 # --- Alt Program: SCHEDULER_AND_RUN_THREAD (Adres 600) ---
 # SCHEDULERDA THREAD HLT ETMİS Mİ ONA DA BAKILACAK
 600: CALL 700       # CHECK_IF_ALL_THREADS_HALTED
-601: CALL 580       # PRN blokaj kontrolü (thread ready olmalı mı)
+601: CALL 570       # PRN blokaj kontrolü (thread ready olmalı mı) hersey memory bossadirekt geciyor bunu
 602: CPY 16, 71     # run_id_candidate = memory[16] -> memory[71] (bos gecici alan)
 
     # if run_id_candidate == 1     
@@ -325,8 +316,9 @@ Begin Instruction Section
 652: SET 1, 31      # TCB1_STATE (memory[31]) = Running 
 653: CPY 3, 35      # TCB1_StartingIE (memory[35]) = current_total_IE (memory[3])
 654: CPY 32, 70     # memory[70] = TCB1_PC (memory[32] degeri); USER komutu icin hedef PC'yi hazirla.
-655: USER 70        # Kullanici moduna gec ve PC = memory[70]'deki adresten basla
-656: HLT            # Guvenlik HLT'si (buraya ulasilmamasi gerekir)
+655: SET 0, 21      # TCB0_STATE = 0 (Ready veya Idle gibi davranır)
+656: USER 70        # Kullanici moduna gec ve PC = memory[70]'deki adresten basla
+657: HLT            # Guvenlik HLT'si (buraya ulasilmamasi gerekir)
 
 
 

@@ -35,7 +35,7 @@ def main():
     
     print("\nCPU Çalıştırılıyor...")
     # 4. CPU'yu çalıştır
-    max_execution_cycles = 300 # Güvenlik için maksimum döngü sayısı
+    max_execution_cycles = 150 # Güvenlik için maksimum döngü sayısı
     current_cycles = 0
     try:
         while not my_cpu.is_halted and current_cycles < max_execution_cycles:
