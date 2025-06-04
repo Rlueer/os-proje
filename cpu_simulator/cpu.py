@@ -10,7 +10,7 @@ class CPU:
     MEM_OS_SYSCALL_TYPE = 10      # Hangi syscall yapıldığını OS'ye bildirmek için
     MEM_OS_SYSCALL_HLT_HANDLER = 11 # OS'nin SYSCALL_HLT işleyicisinin adresi
     MEM_OS_SYSCALL_YIELD_HANDLER = 12 # OS'nin SYSCALL_YIELD işleyicisinin adresi
-    # MEM_OS_SYSCALL_PRN_HANDLER = 13 # Eğer PRN de OS'de işlenecekse (ama doküman C/C++ diyor)
+    MEM_OS_SYSCALL_PRN_HANDLER = 13 # Eğer PRN de OS'de işlenecekse (ama doküman C/C++ diyor)
 
     # Yığın için varsayılan sınırlar (OS bunları iplik bazlı değiştirebilir)
     # Bu sınırlar, yığının hangi bellek aralığında çalıştığını belirtir.
@@ -151,9 +151,7 @@ class CPU:
         original_mode_before_syscall = self.mode # Sadece bilgilendirme amaçlı, dönüşü OS yönetir.
 
         if command.startswith("SYSCALL"):
-            # print(f"System Call '{command}' initiated. Current Mode: {self.mode} -> KERNEL") # Debug
             self.mode = "KERNEL"
-
 
         if command == "HLT":
             self.is_halted = True
@@ -441,7 +439,6 @@ class CPU:
             else:
                 print(f"Error: SYSCALL_PRN requires 1 argument, got {len(args)}. Halting.")
                 self.is_halted = True
-            # Not: KERNEL modunda kalır, OS gerekirse USER'a döner.
 
         elif command == "SYSCALL_HLT": 
             if not args:
@@ -511,7 +508,7 @@ class CPU:
         """
         if not self.is_halted:
             print()
-            print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15] if self.mode == 'USER' else 'OS'}")
+            print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
             instruction_str = self._fetch()
             if instruction_str and not self.is_halted: # Fetch sırasında hata olup durdurulmadıysa
                 print(f"[RUN_CYCLE] Executing: {instruction_str}")

@@ -17,6 +17,7 @@ Begin Data Section
     10 = 0          # Son Syscall Turu (0:PRN, 1:HLT, 2:YIELD) - CPU ayarlar
     11 = 300        # SYSCALL_HLT Handler Adresi
     12 = 400        # SYSCALL_YIELD Handler Adresi
+    13 = 500        # SYSCALL_PRN Handler Adresi
     15 = 0          # current_running_thread_id (0:OS, 1:T1, 2:T2) - OS gunceller
     16 = 1          # next_thread_to_run_id (Scheduler bunu gunceller)
     17 = 0          # Gecici - YIELD yapan ipligin TCB'sine kaydedilecek PC'yi tutar
@@ -67,12 +68,16 @@ Begin Data Section
     # --- THREAD 1 Veri Alani (1000-1999) ---
     1050 = 111      # Thread 1'in yazdiracagi ilk deger
     1051 = 112      # Thread 1'in yazdiracagi ikinci deger
+    1052 = 2
+
     1200 = 0
     1201 = 0
 
     # --- THREAD 2 Veri Alani (2000-2999) ---
     2050 = 221
     2051 = 222
+    2052 = 3
+
     2200 = 0
     2201 = 0
 
@@ -87,6 +92,11 @@ Begin Instruction Section
 201: SET 1, 16      # next_thread_to_run_id = 1
 202: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
 203: HLT            # OS Final HLT
+
+
+
+
+
 
 # --- Sistem Cagrisi Isleyicileri ---
     # SYSCALL_HLT Handler (memory[11]=300)
@@ -111,6 +121,10 @@ Begin Instruction Section
     # Her iki durumda da Scheduler'i cagir
 311: CALL 600       # Bir sonraki ipligi calistir veya OS'yi HLT et (scheduler karar verir)
 312: HLT            # Guvenlik HLT'si
+
+
+
+
 
 # SYSCALL_YIELD Handler (memory[12]=400)
 400: CPY 15, 72     # yielded_thread_id = memory[15]
@@ -148,6 +162,10 @@ Begin Instruction Section
     # Scheduler'i cagir
 430: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
 431: HLT            # Guvenlik HLT'si
+
+
+
+
 
 # --- Alt Program: SCHEDULER_AND_RUN_THREAD (Adres 600) ---
 600: CALL 700       # CHECK_IF_ALL_THREADS_HALTED
@@ -194,6 +212,12 @@ Begin Instruction Section
 656: USER 70        # Kullanici moduna gec ve PC = memory[70]'deki adresten basla
 657: HLT            # Guvenlik HLT'si (buraya ulasilmamasi gerekir)
 
+
+
+
+
+
+
 # --- Alt Program: CHECK_IF_ALL_THREADS_HALTED (Adres 700) ---
 # 73 -> 1 74 -> 2 75 -> 3  
 
@@ -212,6 +236,11 @@ Begin Instruction Section
 706: JIF 0, 203     # İkisi de Halted, OS'yi HLT et
 
 710: RET            # En az biri Ready/Running/Blocked (State < 3)
+
+
+
+
+
 
 #-----------------------------------------------------
     # THREAD 1 KOMUTLARI (Baslangic: 1000) - Detaylandirilmis Hali
@@ -242,6 +271,14 @@ Begin Instruction Section
     # LOOP_EXIT_T1 (Adres 1016)
 1016: SYSCALL_PRN 15         # DEBUG: Dongu sonrasi son ID kontrolu (1 olmali)
 1017: SYSCALL_HLT            # Thread 1 sonlaniyor
+
+
+
+
+
+
+
+
 #-----------------------------------------------------
     # THREAD 2 KOMUTLARI (Baslangic: 2000) - Uzatilmis ve Farklilastirilmis Hali
     #-----------------------------------------------------
