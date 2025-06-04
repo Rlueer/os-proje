@@ -427,12 +427,24 @@ class CPU:
                 try:
                     address_to_print = int(args[0])
                     if self._is_valid_address(address_to_print, "read for SYSCALL_PRN"):
+                            # 1. Değeri oku ve Python'da konsola yazdır (Proje gereksinimi)
                         value_to_print = self.memory[address_to_print]
                         print("--------------------------------- KERNEL MODE'a geçildi (System Call)")
-                        print(f"[SYSCALL_PRN] memory[{address_to_print}] = {value_to_print}")
-                        self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 0 # PRN syscall kodu
-                        self.syscall_result = 100 # Bloklanacak komut sayısı (OS'ye bilgi)
-                        executed_successfully = True
+                        print(f"[SYSCALL_PRN Output]: {value_to_print}")
+
+                        # 2. İşletim sistemine gerekli bilgileri aktar
+                        self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 0  # PRN syscall tip kodu
+                        self.syscall_result = self.pc + 1        # Thread'in dönüş adresini memory[2]'ye yaz
+
+                        # 3. Kontrolü OS'deki PRN Handler'ına devret
+                        os_prn_handler_address = self.memory[CPU.MEM_OS_SYSCALL_PRN_HANDLER]
+                        if self._is_valid_address(os_prn_handler_address, "jump to OS PRN handler"):
+                            self.pc = os_prn_handler_address
+                            pc_incremented_by_command = True
+                            executed_successfully = True
+                        else:
+                            print(f"Error: Invalid OS PRN handler address configured at memory[{CPU.MEM_OS_SYSCALL_PRN_HANDLER}]. Halting.")
+                            self.is_halted = True
                 except ValueError:
                     print(f"Error: Invalid argument for SYSCALL_PRN: {args}. Halting.")
                     self.is_halted = True
@@ -495,8 +507,26 @@ class CPU:
             #print(f"DEBUG: Before IE increment: IE={self.instructions_executed}, Current Command: {command}") # DEBUG SATIRI
             if not pc_incremented_by_command:
                 self.pc += 1
-            self.instructions_executed += 1
-            #print(f"DEBUG: After IE increment: IE={self.instructions_executed}") # DEBUG SATIRI
+            self.instructions_executed += 1 # Bu self.memory[3] oluyor
+            thread_id = self.memory[15]
+            if thread_id == 0:
+                tcb_range = range(21, 27)
+            elif thread_id == 1:
+                tcb_range = range(31, 37)
+            elif thread_id == 2:
+                tcb_range = range(41, 47)
+            else:
+                tcb_range = []
+
+            print(f"------ [TCB Snapshot for Thread ID {thread_id}] ------")
+            for addr in tcb_range:
+               print(f"mem[{addr}]={self.memory[addr]}", end=" | ")
+            print("")
+            value_at_sp = "N/A" # Eger SP gecersiz bir adres ise veya yigin bos ise
+            if 0 <= self.sp < len(self.memory): # SP gecerli bir adres mi diye kontrol et
+                value_at_sp = self.memory[self.sp]
+            #print(f"IE: {self.instructions_executed} | Next PC: {self.pc} | Mode: {self.mode} | SP: {self.sp} (ValAtSP: {value_at_sp}) | Syscall Result: {self.syscall_result}")
+        
         elif not self.is_halted: 
             print(f"Error: Command '{command}' with args {args} could not be executed successfully. Halting.")
             self.is_halted = True
@@ -511,7 +541,6 @@ class CPU:
             print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
             instruction_str = self._fetch()
             if instruction_str and not self.is_halted: # Fetch sırasında hata olup durdurulmadıysa
-                print(f"[RUN_CYCLE] Executing: {instruction_str}")
                 self._decode_execute(instruction_str)
         # else:
             # print("CPU is halted. Cannot run cycle.") # Debug
