@@ -133,13 +133,13 @@ Begin Instruction Section
 
     # ELSE (halted_thread_id == 2)
 305: SET 3, 41      # TCB2_STATE (memory[41]) = Halted (3)
-306: JIF 15, 312     # Her zaman Scheduler'a git (312)
+306: JIF 15, 311     # Her zaman Scheduler'a git (312)
 
     # IF (halted_thread_id == 1)
 310: SET 3, 31      # TCB1_STATE (memory[31]) = Halted (3)
     # Her iki durumda da Scheduler'i cagir
 311: CALL 600       # Bir sonraki ipligi calistir veya OS'yi HLT et (scheduler karar verir)
-312: HLT            # Guvenlik HLT'si
+312: HLT          # Guvenlik HLT'si
 
 
 
@@ -281,7 +281,7 @@ Begin Instruction Section
     # if run_id_candidate == 1     
 603: CPY 71, 72     # run_id_candidate -> memory[72]
 604: ADD 72, -1     # memory[72] = run_id_candidate - 1
-605: JIF 72, 640    # Eger (run_id_candidate - 1) <= 0 (yani ID=1) ise 640'a git (T1 kontrol/yukle)
+605: JIF 72, 610    # Eger (run_id_candidate - 1) <= 0 (yani ID=1) ise 640'a git (T1 kontrol/yukle)
 
     # ELSE (run_id_candidate == 2) -> Thread 2'yi kontrol et/yukle
 606: CPY 41, 72     # TCB2_STATE (memory[41]) -> memory[72]
@@ -291,6 +291,11 @@ Begin Instruction Section
 609: JIF 15, 600     # Scheduler'i en bastan tekrar cagir
 
 
+# --- T1 için STATE kontrolü ---
+610: CPY 31, 72      # TCB1_STATE → memory[72]
+611: JIF 72, 650     # Eğer Ready ise çalıştır
+612: SET 2, 16       # değilse T2 dene
+613: JIF 15, 606
 
     # Thread 2'yi Yukle ve Calistir (Adres 615)
 615: CPY 43, 1       # CPU_SP = TCB2_SP
