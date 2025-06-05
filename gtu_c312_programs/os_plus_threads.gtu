@@ -522,15 +522,80 @@ Begin Instruction Section
 #Farklı sayıları sıralamak için sadece 3050-3057 adreslerindeki 
 #değerleri ve 3050'deki N değerini değiştirmeniz yeterli.
 #-----------------------------------------------------
-3000: SET 6, 3050        # i = 6
-3001: SET 0, 3052        # dummy
-3002: SET 0, 3051        # sum = 0
-3003: ADDI 3051, 3050    # sum += i
-3004: ADD 3050, -1       # i--
-3005: SYSCALL_PRN 3051   # print sum
-3006: JIF 3050, 3008     # if i <= 0 goto HLT
-3007: JIF 3052, 3003     # loop back
-3008: SYSCALL_HLT        # end thread
+# --- THREAD 3 KOMUTLARI (Başlangıç: 3000) - DÜZELTİLMİŞ Bubble Sort ---
+3000: CPY  3050, 3063    # n = N (5)
+3001: ADD  3063, -1      # n-1 = 4
+3002: SET  0, 3060       # i = 0
+
+# --- DIŞ DÖNGÜ BAŞLANGICI (i döngüsü) ---
+3003: CPY  3060, 3064    # temp_i = i
+3004: CPY  3063, 3065    # temp_n1 = N-1
+3005: SUBI 3064, 3065    # temp_comparison = i - (N-1)
+3006: JIF  3065, 3050    # Eğer comparison <= 0 ise devam, değilse yazdırmaya git
+3007: SET  0, 3061       # j = 0
+
+# --- İÇ DÖNGÜ BAŞLANGICI (j döngüsü) ---
+3008: CPY  3061, 3066    # temp_j = j
+3009: CPY  3063, 3067    # temp_n1 = N-1
+3010: CPY  3060, 3068    # temp_i = i
+3011: SUBI 3067, 3068    # limit = (N-1) - i
+3012: SUBI 3066, 3067    # comparison = j - limit
+3013: JIF  3067, 3040    # Eğer j >= limit ise i++ yap
+
+# --- DİZİ ELEMAN ADRESLERİNİ HESAPLA ---
+3014: SET  3051, 3065    # base = 3051 (array başlangıç adresi)
+3015: CPY  3061, 3066    # temp_j = j
+3016: ADDI 3065, 3066    # array[j] adresi = base + j
+3017: CPY  3065, 3067    # array[j] adresini sakla
+3018: ADD  3067, 1       # array[j+1] adresi = array[j] adresi + 1
+
+# --- DİZİ ELEMANLARININ DEĞERLERİNİ AL ---
+3019: CPYI 3065, 3068    # 3068 = array[j] değeri
+3020: CPYI 3067, 3069    # 3069 = array[j+1] değeri
+
+# --- KARŞILAŞTIRMA: array[j] > array[j+1] MI? ---
+3021: CPY  3068, 3062    # temp = array[j]
+3022: SUBI 3062, 3069    # temp = array[j] - array[j+1]
+3023: JIF  3062, 3035    # if (array[j] <= array[j+1]) ise j++ yap
+
+# --- SWAP İŞLEMİ (DÜZELTİLMİŞ) ---
+3024: CPY  3068, 3062    # temp = array[j] değeri
+3025: CPYI 3069, 3065    # array[j] = array[j+1] değeri (indirect write)
+3026: CPYI 3062, 3067    # array[j+1] = temp (indirect write)
+
+# --- CPU'YU YIELD ET ---
+3027: SYSCALL_YIELD
+
+# --- J'Yİ 1 ARTTIR ve İÇ DÖNGÜYE DÖN (DÜZELTİLMİŞ) ---
+3035: ADD  3061, 1       # j++
+3036: JIF  0, 3008       # PC = 3008'e git (döngü başı)
+
+# --- İ DÖNGÜSÜ İÇİN: i++ ve DIŞ DÖNGÜ BAŞINA DÖN (DÜZELTİLMİŞ) ---
+3040: ADD  3060, 1       # i++
+3041: JIF  0, 3003       # PC = 3003'e git (dış döngü başı)
+
+# --- SONUÇLARI YAZDIRMA AŞAMASI ---
+3050: SET  0, 3080       # print_index = 0
+
+# --- YAZDIRMA DÖNGÜSÜ (DÜZELTİLMİŞ) ---
+3051: CPY  3080, 3081    # temp_index = print_index
+3052: CPY  3050, 3082    # temp_N = N
+3053: SUBI 3081, 3082    # comparison = print_index - N
+3054: JIF  3082, 3065    # if (print_index >= N) ise HALT
+
+# --- DİZİ ELEMANINI YAZDIR ---
+3055: SET  3051, 3081    # base_addr = 3051
+3056: CPY  3080, 3082    # temp_index = print_index
+3057: ADDI 3081, 3082    # element_addr = base_addr + print_index
+3058: CPYI 3081, 3083    # element_value = array[print_index]
+3059: SYSCALL_PRN 3083   # ekrana yazdır
+
+# --- YAZDIRMA İNDEXİNİ ARTTIR (DÜZELTİLMİŞ) ---
+3060: ADD  3080, 1       # print_index++
+3061: JIF  0, 3051       # PC = 3051'e git (yazdırma döngüsü başı)
+
+# --- PROGRAM SONU ---
+3065: SYSCALL_HLT        # Thread'i sonlandır
 
 #-----------------------------------------------------
     # THREAD 4 KOMUTLARI (Baslangic: 4000) - Basitlestirilmis Hali
