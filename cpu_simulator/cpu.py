@@ -520,10 +520,10 @@ class CPU:
                 tcb_range = []
             
 
-            for base in [20, 30, 40]:  # TCB0, TCB1, TCB2
+            for base in [20, 30, 40, 50]:  # TCB0, TCB1, TCB2
                 tcb_id = self.memory[base]
                 values = [self.memory[base + offset] for offset in range(7)]
-                #print(f"mem[{base}-{base+6}] (ID={tcb_id}):", " | ".join(f"{v}" for v in values))
+                print(f"mem[{base}-{base+6}] (ID={tcb_id}):", " | ".join(f"{v}" for v in values))
 
             #print(f"------ [TCB Snapshot for Thread ID {thread_id}] ------")
             #for addr in tcb_range:
@@ -544,7 +544,7 @@ class CPU:
         Tek bir CPU döngüsünü çalıştırır: Fetch, Decode, Execute.
         """
         if not self.is_halted:
-            print()
+            #print()
             #print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
             instruction_str = self._fetch()
             if instruction_str and not self.is_halted: # Fetch sırasında hata olup durdurulmadıysa
