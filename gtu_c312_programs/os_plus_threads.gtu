@@ -351,12 +351,16 @@ Begin Instruction Section
 #-----------------------------------------------------
     # THREAD 1 KOMUTLARI (Baslangic: 1000) - Basitlestirilmis Hali
     #-----------------------------------------------------
-1000: SET 111, 1050      # Ilk degeri ayarla
-1001: SYSCALL_PRN 1050   # Ilk degeri yazdir (111 bekleniyor)
-1002: SYSCALL_YIELD      # CPU'yu OS'e birak
-1003: SET 112, 1051      # YIELD sonrasi ikinci degeri ayarla
-1004: SYSCALL_PRN 1051   # Ikinci degeri yazdir (112 bekleniyor)
-1005: SYSCALL_HLT        # Thread 1'i sonlandir
+1000: SET 11, 1050       # i = 10
+1001: SET 0, 1052
+1002: SET 0, 1051        # sum = 0
+1003: ADDI 1051, 1050      # sum = sum + i
+1004: ADD 1050, -1       # i = i - 1
+1005: SYSCALL_PRN 1051  # print current sum 
+1006: JIF 1050, 1008     # if i <= 0 goto end
+1007: JIF 1052, 1003   # give control back to OS
+1008: SYSCALL_HLT      # end of thread
+
 
 #-----------------------------------------------------
     # THREAD 2 KOMUTLARI (Baslangic: 2000) - Basitlestirilmis Hali

@@ -523,7 +523,7 @@ class CPU:
             for base in [20, 30, 40]:  # TCB0, TCB1, TCB2
                 tcb_id = self.memory[base]
                 values = [self.memory[base + offset] for offset in range(7)]
-                print(f"mem[{base}-{base+6}] (ID={tcb_id}):", " | ".join(f"{v}" for v in values))
+                #print(f"mem[{base}-{base+6}] (ID={tcb_id}):", " | ".join(f"{v}" for v in values))
 
             #print(f"------ [TCB Snapshot for Thread ID {thread_id}] ------")
             #for addr in tcb_range:
