@@ -135,7 +135,7 @@ class CPU:
         PUSH/POP komutlarına temel yığın sınırı kontrolleri eklendi.
         SYSCALL_HLT ve SYSCALL_YIELD OS handler'larına PC'yi yönlendiriyor.
         """
-        print(f"[DECODE_EXECUTE] PC={self.pc} -> '{instruction_str}' Mode={self.mode} | SysRes={self.syscall_result} | IE={self.instructions_executed}")
+        #print(f"[DECODE_EXECUTE] PC={self.pc} -> '{instruction_str}' Mode={self.mode} | SysRes={self.syscall_result} | IE={self.instructions_executed}")
 
         if not instruction_str or not isinstance(instruction_str, str):
             print(f"Warning: Invalid instruction format or empty instruction at PC {self.pc}. Halting.")
@@ -164,7 +164,7 @@ class CPU:
                     value_to_set = int(args[0]) 
                     memory_address = int(args[1])
                     if self._is_valid_address(memory_address, "write to"):
-                        print(f"[SET] memory[{memory_address}] = {value_to_set}")
+                        #print(f"[SET] memory[{memory_address}] = {value_to_set}")
 
                         self.memory[memory_address] = value_to_set
                         executed_successfully = True
@@ -184,7 +184,7 @@ class CPU:
                     dest_address = int(args[1])
                     if self._is_valid_address(source_address, "read from") and \
                        self._is_valid_address(dest_address, "write to"):
-                        print(f"[CPY] memory[{dest_address}] = memory[{source_address}] ({self.memory[dest_address]})")
+                        #print(f"[CPY] memory[{dest_address}] = memory[{source_address}] ({self.memory[dest_address]})")
 
                         self.memory[dest_address] = self.memory[source_address]
                         executed_successfully = True
@@ -523,7 +523,7 @@ class CPU:
             for base in [20, 30, 40, 50]:  # TCB0, TCB1, TCB2
                 tcb_id = self.memory[base]
                 values = [self.memory[base + offset] for offset in range(7)]
-                print(f"mem[{base}-{base+6}] (ID={tcb_id}):", " | ".join(f"{v}" for v in values))
+                #print(f"mem[{base}-{base+6}] (ID={tcb_id}):", " | ".join(f"{v}" for v in values))
 
             #print(f"------ [TCB Snapshot for Thread ID {thread_id}] ------")
             #for addr in tcb_range:
