@@ -1,0 +1,435 @@
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=200, SP=990, SYSCALL_RET_PC=0, IE=0
+TCB[0] -> State=1, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[1] -> State=0, PC=1000, SP=1990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[2] -> State=0, PC=2000, SP=2990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[3] -> State=0, PC=3000, SP=3990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=682, SP=1990, SYSCALL_RET_PC=0, IE=46
+TCB[0] -> State=1, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=46
+TCB[1] -> State=0, PC=1000, SP=1990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[2] -> State=0, PC=2000, SP=2990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[3] -> State=0, PC=3000, SP=3990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=1990, SYSCALL_RET_PC=1002, IE=57
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=46
+TCB[1] -> State=1, PC=1000, SP=1990, UnblockIE=0, StartIE=47, UsedIE=11
+TCB[2] -> State=0, PC=2000, SP=2990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[3] -> State=0, PC=3000, SP=3990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=692, SP=2990, SYSCALL_RET_PC=1002, IE=153
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=142
+TCB[1] -> State=2, PC=1002, SP=1990, UnblockIE=157, StartIE=47, UsedIE=11
+TCB[2] -> State=0, PC=2000, SP=2990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[3] -> State=0, PC=3000, SP=3990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=2990, SYSCALL_RET_PC=2002, IE=164
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=142
+TCB[1] -> State=2, PC=1002, SP=1990, UnblockIE=157, StartIE=47, UsedIE=11
+TCB[2] -> State=1, PC=2000, SP=2990, UnblockIE=0, StartIE=154, UsedIE=11
+TCB[3] -> State=0, PC=3000, SP=3990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=672, SP=3990, SYSCALL_RET_PC=2002, IE=266
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=244
+TCB[1] -> State=0, PC=1002, SP=1990, UnblockIE=0, StartIE=47, UsedIE=11
+TCB[2] -> State=2, PC=2002, SP=2990, UnblockIE=264, StartIE=154, UsedIE=11
+TCB[3] -> State=0, PC=3000, SP=3990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=3990, SYSCALL_RET_PC=3060, IE=608
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=244
+TCB[1] -> State=0, PC=1002, SP=1990, UnblockIE=0, StartIE=47, UsedIE=11
+TCB[2] -> State=2, PC=2002, SP=2990, UnblockIE=264, StartIE=154, UsedIE=11
+TCB[3] -> State=1, PC=3000, SP=3990, UnblockIE=0, StartIE=267, UsedIE=342
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=682, SP=1990, SYSCALL_RET_PC=3060, IE=707
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=343
+TCB[1] -> State=0, PC=1002, SP=1990, UnblockIE=0, StartIE=47, UsedIE=11
+TCB[2] -> State=0, PC=2002, SP=2990, UnblockIE=0, StartIE=154, UsedIE=11
+TCB[3] -> State=2, PC=3060, SP=3990, UnblockIE=708, StartIE=267, UsedIE=342
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=402, SP=1990, SYSCALL_RET_PC=1003, IE=715
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=343
+TCB[1] -> State=1, PC=1002, SP=1990, UnblockIE=0, StartIE=708, UsedIE=19
+TCB[2] -> State=0, PC=2002, SP=2990, UnblockIE=0, StartIE=154, UsedIE=11
+TCB[3] -> State=2, PC=3060, SP=3990, UnblockIE=708, StartIE=267, UsedIE=342
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=692, SP=2990, SYSCALL_RET_PC=1003, IE=772
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=400
+TCB[1] -> State=0, PC=1003, SP=1990, UnblockIE=0, StartIE=708, UsedIE=19
+TCB[2] -> State=0, PC=2002, SP=2990, UnblockIE=0, StartIE=154, UsedIE=11
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=267, UsedIE=342
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=402, SP=2990, SYSCALL_RET_PC=2003, IE=780
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=400
+TCB[1] -> State=0, PC=1003, SP=1990, UnblockIE=0, StartIE=708, UsedIE=19
+TCB[2] -> State=1, PC=2002, SP=2990, UnblockIE=0, StartIE=773, UsedIE=19
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=267, UsedIE=342
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=672, SP=3990, SYSCALL_RET_PC=2003, IE=840
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=460
+TCB[1] -> State=0, PC=1003, SP=1990, UnblockIE=0, StartIE=708, UsedIE=19
+TCB[2] -> State=0, PC=2003, SP=2990, UnblockIE=0, StartIE=773, UsedIE=19
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=267, UsedIE=342
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=3990, SYSCALL_RET_PC=3060, IE=860
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=460
+TCB[1] -> State=0, PC=1003, SP=1990, UnblockIE=0, StartIE=708, UsedIE=19
+TCB[2] -> State=0, PC=2003, SP=2990, UnblockIE=0, StartIE=773, UsedIE=19
+TCB[3] -> State=1, PC=3060, SP=3990, UnblockIE=0, StartIE=841, UsedIE=362
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=682, SP=1990, SYSCALL_RET_PC=3060, IE=959
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=559
+TCB[1] -> State=0, PC=1003, SP=1990, UnblockIE=0, StartIE=708, UsedIE=19
+TCB[2] -> State=0, PC=2003, SP=2990, UnblockIE=0, StartIE=773, UsedIE=19
+TCB[3] -> State=2, PC=3060, SP=3990, UnblockIE=960, StartIE=841, UsedIE=362
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=1990, SYSCALL_RET_PC=1005, IE=970
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=559
+TCB[1] -> State=1, PC=1003, SP=1990, UnblockIE=0, StartIE=960, UsedIE=30
+TCB[2] -> State=0, PC=2003, SP=2990, UnblockIE=0, StartIE=773, UsedIE=19
+TCB[3] -> State=2, PC=3060, SP=3990, UnblockIE=960, StartIE=841, UsedIE=362
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=692, SP=2990, SYSCALL_RET_PC=1005, IE=1066
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=655
+TCB[1] -> State=2, PC=1005, SP=1990, UnblockIE=1070, StartIE=960, UsedIE=30
+TCB[2] -> State=0, PC=2003, SP=2990, UnblockIE=0, StartIE=773, UsedIE=19
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=841, UsedIE=362
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=2990, SYSCALL_RET_PC=2005, IE=1077
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=655
+TCB[1] -> State=2, PC=1005, SP=1990, UnblockIE=1070, StartIE=960, UsedIE=30
+TCB[2] -> State=1, PC=2003, SP=2990, UnblockIE=0, StartIE=1067, UsedIE=30
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=841, UsedIE=362
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=672, SP=3990, SYSCALL_RET_PC=2005, IE=1179
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=757
+TCB[1] -> State=0, PC=1005, SP=1990, UnblockIE=0, StartIE=960, UsedIE=30
+TCB[2] -> State=2, PC=2005, SP=2990, UnblockIE=1177, StartIE=1067, UsedIE=30
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=841, UsedIE=362
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=3990, SYSCALL_RET_PC=3060, IE=1199
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=757
+TCB[1] -> State=0, PC=1005, SP=1990, UnblockIE=0, StartIE=960, UsedIE=30
+TCB[2] -> State=2, PC=2005, SP=2990, UnblockIE=1177, StartIE=1067, UsedIE=30
+TCB[3] -> State=1, PC=3060, SP=3990, UnblockIE=0, StartIE=1180, UsedIE=382
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=682, SP=1990, SYSCALL_RET_PC=3060, IE=1298
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=856
+TCB[1] -> State=0, PC=1005, SP=1990, UnblockIE=0, StartIE=960, UsedIE=30
+TCB[2] -> State=0, PC=2005, SP=2990, UnblockIE=0, StartIE=1067, UsedIE=30
+TCB[3] -> State=2, PC=3060, SP=3990, UnblockIE=1299, StartIE=1180, UsedIE=382
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=302, SP=1990, SYSCALL_RET_PC=0, IE=1306
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=856
+TCB[1] -> State=1, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=0, PC=2005, SP=2990, UnblockIE=0, StartIE=1067, UsedIE=30
+TCB[3] -> State=2, PC=3060, SP=3990, UnblockIE=1299, StartIE=1180, UsedIE=382
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=692, SP=2990, SYSCALL_RET_PC=0, IE=1393
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=943
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=0, PC=2005, SP=2990, UnblockIE=0, StartIE=1067, UsedIE=30
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=1180, UsedIE=382
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=302, SP=2990, SYSCALL_RET_PC=0, IE=1401
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=943
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=1, PC=2005, SP=2990, UnblockIE=0, StartIE=1394, UsedIE=38
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=1180, UsedIE=382
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=672, SP=3990, SYSCALL_RET_PC=0, IE=1492
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=1034
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=3, PC=2005, SP=2990, UnblockIE=0, StartIE=1394, UsedIE=38
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=1180, UsedIE=382
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=3990, SYSCALL_RET_PC=3060, IE=1512
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=1034
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=3, PC=2005, SP=2990, UnblockIE=0, StartIE=1394, UsedIE=38
+TCB[3] -> State=1, PC=3060, SP=3990, UnblockIE=0, StartIE=1493, UsedIE=402
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=672, SP=3990, SYSCALL_RET_PC=3060, IE=1683
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=1205
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=3, PC=2005, SP=2990, UnblockIE=0, StartIE=1394, UsedIE=38
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=1493, UsedIE=402
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=504, SP=3990, SYSCALL_RET_PC=3060, IE=1703
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=1205
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=3, PC=2005, SP=2990, UnblockIE=0, StartIE=1394, UsedIE=38
+TCB[3] -> State=1, PC=3060, SP=3990, UnblockIE=0, StartIE=1684, UsedIE=422
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=672, SP=3990, SYSCALL_RET_PC=3060, IE=1874
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=1376
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=3, PC=2005, SP=2990, UnblockIE=0, StartIE=1394, UsedIE=38
+TCB[3] -> State=0, PC=3060, SP=3990, UnblockIE=0, StartIE=1684, UsedIE=422
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------
+
+---- THREAD TABLE SNAPSHOT ----
+CPU_REGS -> PC=302, SP=3990, SYSCALL_RET_PC=0, IE=1888
+TCB[0] -> State=0, PC=200, SP=990, UnblockIE=0, StartIE=0, UsedIE=1376
+TCB[1] -> State=3, PC=1005, SP=1990, UnblockIE=0, StartIE=1299, UsedIE=38
+TCB[2] -> State=3, PC=2005, SP=2990, UnblockIE=0, StartIE=1394, UsedIE=38
+TCB[3] -> State=1, PC=3060, SP=3990, UnblockIE=0, StartIE=1875, UsedIE=436
+TCB[4] -> State=0, PC=4000, SP=4990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[5] -> State=0, PC=5000, SP=5990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[6] -> State=0, PC=6000, SP=6990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[7] -> State=0, PC=7000, SP=7990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[8] -> State=0, PC=8000, SP=8990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[9] -> State=0, PC=9000, SP=9990, UnblockIE=0, StartIE=0, UsedIE=0
+TCB[10] -> State=0, PC=10000, SP=10990, UnblockIE=0, StartIE=0, UsedIE=0
+--------------------------------

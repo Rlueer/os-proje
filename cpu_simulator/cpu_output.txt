@@ -1,0 +1,116 @@
+
+--- Test 1: SET ve HLT ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 1 Sonucu: Halted=True, Mem[200]=50, Expected Mem[200]=50, Instructions Executed=1
+
+--- Test CPYI2 ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test CPYI2 Sonucu: Halted=True, Mem[201]=10 (Expected=10), IE=1
+
+--- Test 2: CPY ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 2 Sonucu: Halted=True, Mem[201]=77, Expected Mem[201]=77, Instructions Executed=1
+
+--- Test 3: CPYI ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 3 Sonucu: Halted=True, Mem[350]=88, Expected Mem[350]=88, Instructions Executed=1
+
+--- Test 4: ADD ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 4 Sonucu: Halted=True, Mem[200]=85, Expected Mem[200]=85, Instructions Executed=1
+
+--- Test 5: ADDI ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 5 Sonucu: Halted=True, Mem[200]=88, Expected Mem[200]=88, Instructions Executed=1
+
+--- Test 6: USER Mode Memory Violation (SET to low address) ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 1000, SP: 1999
+Error: USER mode attempted to write to protected memory address 20. Thread will be shut down. Halting.
+Test 6 Sonucu: Halted=True (Expected=True), Instructions Executed=0 (Expected=0)
+
+--- Test 7: USER Mode Memory Violation (CPYI indirect read from low address) ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 1000, SP: 1999
+Error: USER mode attempted to read from (indirect for CPYI) protected memory address 30. Thread will be shut down. Halting.
+Test 7 Sonucu: Halted=True (Expected=True), Instructions Executed=0 (Expected=0)
+
+--- Test 8: SUBI ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 8 Sonucu: Halted=True, Mem[201]=30, Expected Mem[201]=30, Instructions Executed=1
+
+--- Test 9: JIF (Jump taken) ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 9 Sonucu: Halted=True, Final PC (at HLT)=103, Mem[201]=0 (Expected=0), Instructions Executed=2 (Expected=2)
+
+--- Test 10: JIF (Jump not taken) ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 10 Sonucu: Halted=True, Final PC (at HLT)=103, Mem[201]=88 (Expected=88), Instructions Executed=3 (Expected=3)
+
+--- Test 11: PUSH and POP ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Test 11 Sonucu: Halted=True, Mem[201]=777 (Expected=777), Final SP=1023 (Expected=1023), Instructions Executed=2
+
+--- Test 12: CALL and RET ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+[CALL] SP=1023 -> SP=1022, Return Addr=101, Jump To=200
+[RET] Trying to pop return address from SP=1022
+[RET] Returning to address 101, SP=1023
+Test 12 Sonucu: Halted=True, Mem[300]=55 (Expected=55), Mem[301]=22 (Expected=22), Final SP=1023 (Expected=1023), Instructions Executed=4 (Expected=4)
+
+--- Test 13: USER command ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+--------------------- USER MODE'a geciliyor (Thread ID: 0)
+Switched to USER mode. New PC = 1000 (hedef adres: 250 iceriginden)
+Warning: Invalid instruction format or empty instruction at PC 1001. Halting.
+Test 13 Sonucu: Halted=True, Final Mode='USER' (Expected=USER), Mem[1001]=10 (Expected=10), Instructions Executed=2 (Expected=2)
+
+--- Test 14: SYSCALL_PRN (Updated) ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+Beklenen SYSCALL_PRN çıktısı aşağıda olmalı:
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[SYSCALL_PRN Output]: 12345
+Test 14 Sonucu: Halted=False, OS_Syscall_Type=0 (Expected=0), SyscallRes=101 (Expected=100), IE=1
+
+--- Test 15: SYSCALL_HLT (Jump to OS Handler) ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+Test 15 Sonucu: Halted=True, OS_Syscall_Type=1 (Expected=1), PC (before HLT in handler) approx 501, Mem[700]=99 (Expected=99), IE=2
+
+--- Test 16: SYSCALL_YIELD (Jump to OS Handler) ---
+GTU-C312 CPU initialized.
+Loading program to memory...
+Program loaded. Initial PC: 100, SP: 1023
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=0
+Test 16 Sonucu: Halted=True, OS_Syscall_Type=2 (Expected=2), PC (before HLT in handler) approx 551, Mem[501]=77 (Expected=77), IE=2

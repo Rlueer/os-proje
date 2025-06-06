@@ -1,0 +1,1077 @@
+[CALL] SP=990 -> SP=989, Return Addr=203, Jump To=600
+[CALL] SP=989 -> SP=988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 601, SP=989
+[CALL] SP=989 -> SP=988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 602, SP=989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 111
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 221
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 100
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=1
+[CALL] SP=1990 -> SP=1989, Return Addr=461, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=2
+[CALL] SP=2990 -> SP=2989, Return Addr=461, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 101
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 112
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 222
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 102
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=1990 -> SP=1989, Return Addr=331, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=2990 -> SP=2989, Return Addr=331, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 103
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 104
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=3990 -> SP=3989, Return Addr=331, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[CALL] SP=990 -> SP=989, Return Addr=203, Jump To=600
+[CALL] SP=989 -> SP=988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 601, SP=989
+[CALL] SP=989 -> SP=988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 602, SP=989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 111
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 221
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 100
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=1
+[CALL] SP=1990 -> SP=1989, Return Addr=461, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=2
+[CALL] SP=2990 -> SP=2989, Return Addr=461, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 101
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 112
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 222
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 102
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=1990 -> SP=1989, Return Addr=331, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=2990 -> SP=2989, Return Addr=331, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 103
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 104
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=3990 -> SP=3989, Return Addr=331, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[CALL] SP=990 -> SP=989, Return Addr=203, Jump To=600
+[CALL] SP=989 -> SP=988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 601, SP=989
+[CALL] SP=989 -> SP=988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 602, SP=989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 111
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 221
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 100
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=1
+[CALL] SP=1990 -> SP=1989, Return Addr=461, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=2
+[CALL] SP=2990 -> SP=2989, Return Addr=461, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 101
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 112
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 222
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 102
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=990 -> SP=989, Return Addr=203, Jump To=600
+[CALL] SP=989 -> SP=988, Return Addr=601, Jump To=700
+[CALL] SP=990 -> SP=989, Return Addr=203, Jump To=600
+[CALL] SP=989 -> SP=988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 601, SP=989
+[CALL] SP=990 -> SP=989, Return Addr=203, Jump To=600
+[CALL] SP=989 -> SP=988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 601, SP=989
+[CALL] SP=989 -> SP=988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 602, SP=989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 111
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 221
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 100
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=1
+[CALL] SP=1990 -> SP=1989, Return Addr=461, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=2
+[CALL] SP=2990 -> SP=2989, Return Addr=461, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 101
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 112
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 222
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 102
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=1990 -> SP=1989, Return Addr=331, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=2990 -> SP=2989, Return Addr=331, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 103
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 104
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=3990 -> SP=3989, Return Addr=331, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[CALL] SP=990 -> SP=989, Return Addr=203, Jump To=600
+[CALL] SP=989 -> SP=988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 601, SP=989
+[CALL] SP=989 -> SP=988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=988
+[RET] Returning to address 602, SP=989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 111
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 221
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3000 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 100
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=1
+[CALL] SP=1990 -> SP=1989, Return Addr=461, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2002 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CPU_DEBUG] Entering SYSCALL_YIELD; memory[15]=2
+[CALL] SP=2990 -> SP=2989, Return Addr=461, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 101
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 112
+[CALL] SP=1990 -> SP=1989, Return Addr=561, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2003 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 222
+[CALL] SP=2990 -> SP=2989, Return Addr=561, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 102
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 1)
+Switched to USER mode. New PC = 1005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=1990 -> SP=1989, Return Addr=331, Jump To=600
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 601, SP=1989
+[CALL] SP=1989 -> SP=1988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=1988
+[RET] Returning to address 602, SP=1989
+--------------------- USER MODE'a geciliyor (Thread ID: 2)
+Switched to USER mode. New PC = 2005 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=2990 -> SP=2989, Return Addr=331, Jump To=600
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 601, SP=2989
+[CALL] SP=2989 -> SP=2988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=2988
+[RET] Returning to address 602, SP=2989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 103
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+[SYSCALL_PRN Output]: 104
+[CALL] SP=3990 -> SP=3989, Return Addr=561, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 601, SP=3989
+[CALL] SP=3989 -> SP=3988, Return Addr=602, Jump To=570
+[RET] Trying to pop return address from SP=3988
+[RET] Returning to address 602, SP=3989
+--------------------- USER MODE'a geciliyor (Thread ID: 3)
+Switched to USER mode. New PC = 3060 (hedef adres: 70 iceriginden)
+--------------------------------- KERNEL MODE'a geçildi (System Call)
+[CALL] SP=3990 -> SP=3989, Return Addr=331, Jump To=600
+[CALL] SP=3989 -> SP=3988, Return Addr=601, Jump To=700

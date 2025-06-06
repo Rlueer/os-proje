@@ -1,5 +1,17 @@
 # cpu_simulator/cpu.py
+import sys
 
+class MultiWriter:
+    def __init__(self, *writers):
+        self.writers = writers
+
+    def write(self, message):
+        for w in self.writers:
+            w.write(message)
+
+    def flush(self):
+        for w in self.writers:
+            w.flush()
 class CPU:
     # ÖZEL BELLEK KONUMLARI (Sabitler olarak tanımlayabiliriz)
     REG_PC = 0
@@ -221,18 +233,18 @@ class CPU:
         elif command == "CPYI2":
             if len(args) == 2:
                 try:
-                    src_ptr = int(args[0])    # src_ptr hücresindeki değer = kaynak adres
-                    dest_ptr = int(args[1])   # dest_ptr hücresindeki değer = hedef adres
+                    src_ptr = int(args[0])    # A1
+                    dest_ptr = int(args[1])   # A2
                     if self._is_valid_address(src_ptr, "read pointer") and \
-                        self._is_valid_address(dest_ptr, "write pointer"):
+                    self._is_valid_address(dest_ptr, "write pointer"):
 
-                        src_addr = self.memory[src_ptr]
-                        dest_addr = self.memory[dest_ptr]
+                        src_addr = self.memory[src_ptr]     # memory[A1]
+                        dest_addr = self.memory[dest_ptr]   # memory[A2]
 
-                        if self._is_valid_address(src_addr, "read (indirect)") and \
-                            self._is_valid_address(dest_addr, "write (indirect)"):
+                        if self._is_valid_address(src_addr, "indirect read") and \
+                        self._is_valid_address(dest_addr, "indirect write"):
 
-                            self.memory[dest_addr] = self.memory[src_addr]
+                            self.memory[dest_addr] = self.memory[src_addr]  # memory[memory[A2]] = memory[memory[A1]]
                             executed_successfully = True
 
                             if dest_addr == CPU.REG_PC:
@@ -428,23 +440,28 @@ class CPU:
                 try:
                     address_to_print = int(args[0])
                     if self._is_valid_address(address_to_print, "read for SYSCALL_PRN"):
-                            # 1. Değeri oku ve Python'da konsola yazdır (Proje gereksinimi)
                         value_to_print = self.memory[address_to_print]
-                        print("--------------------------------- KERNEL MODE'a geçildi (System Call)")
+
                         print(f"[SYSCALL_PRN Output]: {value_to_print}")
 
-                        # 2. İşletim sistemine gerekli bilgileri aktar
-                        self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 0  # PRN syscall tip kodu
-                        self.syscall_result = self.pc + 1        # Thread'in dönüş adresini memory[2]'ye yaz
+                        try:
+                            with open("output.txt", "a", encoding="utf-8") as f:
+                                f.write(
+                                    f"SYSCALL_PRN VALUE={value_to_print}| TID={self.memory[15]} | PC={self.pc} | IE={self.instructions_executed} \n"
+                                )
+                        except Exception as e:
+                            print(f"[ERROR] output.txt yazılamadı: {e}")
 
-                        # 3. Kontrolü OS'deki PRN Handler'ına devret
+                        self.memory[CPU.MEM_OS_SYSCALL_TYPE] = 0
+                        self.syscall_result = self.pc + 1
+
                         os_prn_handler_address = self.memory[CPU.MEM_OS_SYSCALL_PRN_HANDLER]
                         if self._is_valid_address(os_prn_handler_address, "jump to OS PRN handler"):
                             self.pc = os_prn_handler_address
                             pc_incremented_by_command = True
                             executed_successfully = True
                         else:
-                            print(f"Error: Invalid OS PRN handler address configured at memory[{CPU.MEM_OS_SYSCALL_PRN_HANDLER}]. Halting.")
+                            print(f"Error: Invalid OS PRN handler address at memory[{CPU.MEM_OS_SYSCALL_PRN_HANDLER}]. Halting.")
                             self.is_halted = True
                 except ValueError:
                     print(f"Error: Invalid argument for SYSCALL_PRN: {args}. Halting.")
@@ -537,20 +554,60 @@ class CPU:
         elif not self.is_halted: 
             print(f"Error: Command '{command}' with args {args} could not be executed successfully. Halting.")
             self.is_halted = True
+
+
+    
+    def _update_thread_used_ie(self, thread_id):
+        """Her thread için UsedIE (kullanılan instruction sayısı) güncelle"""
+        try:
+            thread_id = int(thread_id)
+            
+            # TCB base adreslerini tanımla
+            tcb_bases = {
+                0: 20,   # OS (Thread 0)
+                1: 30,   # Thread 1
+                2: 40,   # Thread 2
+                3: 50,   # Thread 3
+                4: 100,  # Thread 4
+                5: 107,  # Thread 5
+                6: 114,  # Thread 6
+                7: 121,  # Thread 7
+                8: 128,  # Thread 8
+                9: 135,  # Thread 9
+                10: 142  # Thread 10
+            }
+            
+            if thread_id in tcb_bases:
+                tcb_base = tcb_bases[thread_id]
+                used_ie_addr = tcb_base + 6  # UsedIE offset = 6
+                
+                # UsedIE'yi 1 arttır
+                current_used_ie = int(self.memory[used_ie_addr])
+                self.memory[used_ie_addr] = current_used_ie + 1
+                
+        except (ValueError, TypeError, IndexError):
+            # Hata durumunda sessizce devam et
+            pass
     
     # ... (run_cycle ve load_program_to_memory fonksiyonları aynı) ...
+
     def run_cycle(self):
         """
         Tek bir CPU döngüsünü çalıştırır: Fetch, Decode, Execute.
         """
         if not self.is_halted:
-            #print()
-            print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
-            instruction_str = self._fetch()
-            if instruction_str and not self.is_halted: # Fetch sırasında hata olup durdurulmadıysa
-                self._decode_execute(instruction_str)
-        # else:
-            # print("CPU is halted. Cannot run cycle.") # Debug
+            with open("instructions_output.txt", "a", encoding="utf-8") as f:
+                multi_out = MultiWriter(sys.stdout, f)
+                #print(f"[RUN_CYCLE] IE: {self.memory[3]} PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}", file=multi_out)
+                current_thread_id = self.memory[15]  # current_running_thread_id
+                self._update_thread_used_ie(current_thread_id)
+                instruction_str = self._fetch()
+                if instruction_str and not self.is_halted:
+                    original_stdout = sys.stdout
+                    sys.stdout = multi_out
+                    self._decode_execute(instruction_str)
+                    sys.stdout = original_stdout
+
 
     def load_program_to_memory(self, program_data_segment, program_instruction_segment, os_offset=21, thread_offsets=None):
         """
@@ -886,6 +943,8 @@ def run_all_cpu_tests():
     print(f"Test 16 Sonucu: Halted={cpu16.is_halted}, OS_Syscall_Type={cpu16.memory[CPU.MEM_OS_SYSCALL_TYPE]} (Expected=2), PC (before HLT in handler) approx {os_yield_handler_addr+1}, Mem[501]={cpu16.memory[501]} (Expected=77), IE={cpu16.instructions_executed}")
 
 if __name__ == "__main__":
+    import sys
+    sys.stdout = open("cpu_output.txt", "w", encoding="utf-8")
     run_all_cpu_tests()
 
 

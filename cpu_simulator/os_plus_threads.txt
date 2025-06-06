@@ -1,0 +1,643 @@
+# os_plus_threads.gtu
+# OS ve Iki Basit Iplik (Thread 1 & Thread 2)
+# Adres cakismalari ve scheduler mantigi duzeltilmis hali
+# Corrections: Line 654 (SET 1, 15), Line 655 (SYSCALL_PRN 15), Line 706 (JIF 0, 203)
+
+#-----------------------------------------------------
+# VERI BOLUMU
+#-----------------------------------------------------
+Begin Data Section
+    # --- CPU Ozel Yazmaclari ---
+    0 = 200         # OS PC Baslangici
+    1 = 990         # OS SP Baslangici
+    # memory[2] (SysCall Result) CPU tarafindan YIELD sonrasi donus PC'sini tutacak
+    # memory[3] (Instr Executed) CPU tarafindan kullanilir
+
+    # --- OS Ozel Alanlari ---
+    10 = 0          # Son Syscall Turu (0:PRN, 1:HLT, 2:YIELD) - CPU ayarlar
+    11 = 300        # SYSCALL_HLT Handler Adresi
+    12 = 400        # SYSCALL_YIELD Handler Adresi
+    13 = 500        # SYSCALL_PRN Handler Adresi
+    15 = 0          # current_running_thread_id (0:OS, 1:T1, 2:T2) - OS gunceller
+    16 = 1          # next_thread_to_run_id (Scheduler bunu gunceller)
+    17 = 0          # Gecici - YIELD yapan ipligin TCB'sine kaydedilecek PC'yi tutar
+    18 = 0          # Gecici - YIELD yapan ipligin TCB'sine kaydedilecek SP'yi tutar
+    19 = 0          # Temporary storage for PRN address argument
+    
+    # --- TCB (Thread Kontrol Bloğu) Yapıları ---
+    # Her TCB için 7 bellek hücresi:
+    # Offset 0: ID
+    # Offset 1: State (0:Ready, 1:Running, 2:Blocked, 3:Halted)
+    # Offset 2: SavedPC
+    # Offset 3: SavedSP
+    # Offset 4: UnblockIECount (PRN blokajı için hedef IE)
+    # Offset 5: StartingIE (Thread ilk çalıştığında memory[3] değeri)
+    # Offset 6: UsedIE (Thread'in kendi kullandığı IE - başlangıçta 0)
+    # TCB_SIZE = 7
+
+# OS (Thread 0) - ID=0
+    20 = 0          # TCB0_ID
+    21 = 1          # TCB0_STATE (Running)
+    22 = 200        # TCB0_PC
+    23 = 990        # TCB0_SP
+    24 = 0          # TCB0_UnblockIECount (OS için kullanılmaz)
+    25 = 0          # TCB0_StartingIE (OS için anlamsız olabilir, başlangıç IE'si 0 veya ilk komut sonrası)
+    26 = 0          # TCB0_UsedIE (OS için takip edilebilir veya 0 bırakılabilir)
+
+
+    # TCB1 (Thread 1 - ID=1)
+    30 = 1          # TCB1_ID
+    31 = 0          # TCB1_STATE (Başlangıçta Ready)
+    32 = 1000       # TCB1_SavedPC_START (Başlangıç PC'si)
+    33 = 1990       # TCB1_SavedSP_START (Başlangıç SP'si)
+    34 = 0          # TCB1_UnblockIECount (Başlangıçta 0)
+    35 = 0          # TCB1_StartingIE (Başlangıçta 0, ilk çalıştığında güncellenecek)
+    36 = 0          # TCB1_UsedIE (Başlangıçta 0)
+
+    # TCB2 (Thread 2 - ID=2)
+    40 = 2          # TCB2_ID
+    41 = 0          # TCB2_STATE (Başlangıçta Ready)
+    42 = 2000       # TCB2_SavedPC_START (Başlangıç PC'si)
+    43 = 2990       # TCB2_SavedSP_START (Başlangıç SP'si)
+    44 = 0          # TCB2_UnblockIECount (Başlangıçta 0)
+    45 = 0          # TCB2_StartingIE (Başlangıçta 0, ilk çalıştığında güncellenecek)
+    46 = 0          # TCB2_UsedIE (Başlangıçta 0)
+
+    # TCB3 (Thread 3 - ID=3)
+    50 = 3          # TCB3_ID
+    51 = 0          # TCB3_STATE (Başlangıçta Ready)
+    52 = 3000       # TCB3_SavedPC_START (Başlangıç PC'si)
+    53 = 3990       # TCB3_SavedSP_START (Başlangıç SP'si)
+    54 = 0          # TCB3_UnblockIECount (Başlangıçta 0)
+    55 = 0          # TCB3_StartingIE (Başlangıçta 0, ilk çalıştığında güncellenecek)
+    56 = 0          # TCB3_UsedIE (Başlangıçta 0)
+
+        # TCB4 (Thread 4 - ID=4)
+    100 = 4          # TCB4_ID
+    101 = 0          # TCB4_STATE (Başlangıçta Ready)
+    102 = 4000       # TCB4_SavedPC_START (Başlangıç Program Counter)
+    103 = 4990       # TCB4_SavedSP_START (Başlangıç Stack Pointer)
+    104 = 0          # TCB4_UnblockIECount (Unblock olacağı IE sayısı)
+    105 = 0          # TCB4_StartingIE (İlk çalıştığı zamanki IE)
+    106 = 0          # TCB4_UsedIE (Ne kadar çalıştığı)
+
+    # TCB5 (Thread 5 - ID=5)
+    107 = 5          # TCB5_ID
+    108 = 0          # TCB5_STATE (Başlangıçta Ready)
+    109 = 5000       # TCB5_SavedPC_START
+    110 = 5990       # TCB5_SavedSP_START
+    111 = 0          # TCB5_UnblockIECount
+    112 = 0          # TCB5_StartingIE
+    113 = 0          # TCB5_UsedIE
+
+    # TCB6 (Thread 6 - ID=6)
+    114 = 6          # TCB6_ID
+    115 = 0          # TCB6_STATE (Başlangıçta Ready)
+    116 = 6000       # TCB6_SavedPC_START
+    117 = 6990       # TCB6_SavedSP_START
+    118 = 0          # TCB6_UnblockIECount
+    119 = 0          # TCB6_StartingIE
+    120 = 0          # TCB6_UsedIE
+
+    # TCB7 (Thread 7 - ID=7)
+    121 = 7          # TCB7_ID
+    122 = 0          # TCB7_STATE (Başlangıçta Ready)
+    123 = 7000       # TCB7_SavedPC_START
+    124 = 7990       # TCB7_SavedSP_START
+    125 = 0          # TCB7_UnblockIECount
+    126 = 0          # TCB7_StartingIE
+    127 = 0          # TCB7_UsedIE
+
+    # TCB8 (Thread 8 - ID=8)
+    128 = 8          # TCB8_ID
+    129 = 0          # TCB8_STATE (Başlangıçta Ready)
+    130 = 8000       # TCB8_SavedPC_START
+    131 = 8990       # TCB8_SavedSP_START
+    132 = 0          # TCB8_UnblockIECount
+    133 = 0          # TCB8_StartingIE
+    134 = 0          # TCB8_UsedIE
+
+    # TCB9 (Thread 9 - ID=9)
+    135 = 9          # TCB9_ID
+    136 = 0          # TCB9_STATE (Başlangıçta Ready)
+    137 = 9000       # TCB9_SavedPC_START
+    138 = 9990       # TCB9_SavedSP_START
+    139 = 0          # TCB9_UnblockIECount
+    140 = 0          # TCB9_StartingIE
+    141 = 0          # TCB9_UsedIE
+
+    # TCB10 (Thread 10 - ID=10)
+    142 = 10         # TCB10_ID
+    143 = 0          # TCB10_STATE (Başlangıçta Ready)
+    144 = 10000      # TCB10_SavedPC_START
+    145 = 10990      # TCB10_SavedSP_START
+    146 = 0          # TCB10_UnblockIECount
+    147 = 0          # TCB10_StartingIE
+    148 = 0          # TCB10_UsedIE
+
+
+    # --- Gecici Hesaplama/Saklama Alanlari (OS Kullanimi Icin) ---
+    70 = 0          # USER komutu icin yeni PC'yi (iplik PC'si) tutar
+    71 = 0          # Karsilastirma / TCB adresi icin gecici deger
+    72 = 0          # Karsilastirma / iplik ID'si / state icin gecici deger
+    73 = 1          # Sabit 1
+    74 = 2          # Sabit 2
+    75 = 3          # Sabit 3 (Halted state)
+    76 = 4          # TCB_SIZE (ID, State, PC, SP)
+    77 = 20         # TCB_START_ADDRESS (ilk TCB'nin baslangic adresi - OS TCB'si)
+    # TCB Offsetleri: ID_OFFSET=0, STATE_OFFSET=1, PC_OFFSET=2, SP_OFFSET=3
+
+    78 = 0          # CHECK_THREADS icin t1_state gecici alani
+    79 = 0          # CHECK_THREADS icin t2_state gecici alani
+    80 = 0          # TCB1_STATE_ADDR (Hesaplanacak: 20 + 1*4 + 1 = 25)
+    81 = 0          # TCB1_PC_ADDR (Hesaplanacak: 20 + 1*4 + 2 = 26)
+    82 = 0          # TCB1_SP_ADDR (Hesaplanacak: 20 + 1*4 + 3 = 27)
+    83 = 0          # TCB2_STATE_ADDR (Hesaplanacak: 20 + 2*4 + 1 = 29)
+    84 = 0          # TCB2_PC_ADDR (Hesaplanacak: 20 + 2*4 + 2 = 30)
+    85 = 0          # TCB2_SP_ADDR (Hesaplanacak: 20 + 2*4 + 3 = 31)
+
+    
+    # --- THREAD 1 Veri Alani (1000-1999) ---
+    1050 = 111      # Thread 1'in yazdiracagi ilk deger
+    1051 = 112      # Thread 1'in yazdiracagi ikinci deger
+    1052 = 2
+
+    1200 = 0
+    1201 = 0
+
+    # --- THREAD 2 Veri Alani (2000-2999) ---
+    2050 = 221
+    2051 = 222
+    2052 = 3
+
+
+    # --- THREAD 3 Veri Alani (3000-3999) - Bubble Sort ---
+    3550 = 5          # N = sıralanacak sayı adedi
+    3551 = 100         # array[0] = ilk sayı
+    3552 = 101         # array[1] = ikinci sayı  
+    3553 = 102         # array[2] = üçüncü sayı
+    3554 = 103         # array[3] = dördüncü sayı
+    3555 = 104         # array[4] = beşinci sayı
+    3556 = 11         # array[5] = altıncı sayı (yedek)
+    3557 = 90         # array[6] = yedinci sayı (yedek)
+
+    # --- Bubble Sort için geçici değişkenler ---
+    3560 = 0          # i (dış döngü sayacı)
+    3561 = 0          # j (iç döngü sayacı)  
+    3562 = 0          # temp (swap için geçici değişken)
+    3563 = 0          # n-1 değeri
+    3564 = 0          # n-1-i değeri (iç döngü limiti)
+    3565 = 0         # array[j] adresi
+    3566 = 0          # array[j+1] adresi
+    3567 = 0          # array[j] değeri
+    3568 = 0          # array[j+1] değeri
+    3569 = 1          # sabit 1
+    3570 = 3551       # array başlangıç adresi
+
+    # --- Yazdırma için değişkenler ---
+    3580 = 0          # print_index
+    3581 = 0          # print_address
+    3582 = 0          # limit
+
+
+End Data Section
+
+Begin Instruction Section
+    #-----------------------------------------------------
+    # ISLETIM SISTEMI KOMUTLARI (Baslangic PC=200)
+    #-----------------------------------------------------
+
+    # --- OS Baslangic ---
+200: SET 0, 15      # current_running_thread_id = 0 (OS)
+201: SET 1, 16      # next_thread_to_run_id = 1
+202: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
+203: HLT            # OS Final HLT
+
+
+
+
+#-----------------------------------------------------
+# SYSCALL_HLT Handler (memory[11]=300) - 3 THREAD İÇİN GÜNCELLENMİŞ
+#-----------------------------------------------------
+300: CPY 15, 72     # halted_thread_id = memory[15] (SYSCALL yapan ipligin ID'si)
+301: SET 0, 15      # current_running_thread_id = 0 (OS kontrolu aldi)
+
+    # Halted thread'in STATE'ini 'Halted' (3) yap.
+302: CPY 72, 70     # temp_id = halted_thread_id
+303: ADD 70, -1     # temp_id = temp_id - 1
+
+    # Thread 1 kontrolü
+304: JIF 70, 320    # if temp_id <= 0 (thread_id == 1) goto 320
+
+    # Thread 2 kontrolü
+305: CPY 70, 71     # temp_id'yi kopyala
+306: ADD 71, -1     # temp_id - 1 (thread_id == 2 için 0 olmalı)
+307: JIF 71, 325    # if temp_id-1 <= 0 (thread_id == 2) goto 325
+
+    # Thread 3 (thread_id == 3)
+308: SET 3, 51      # TCB3_STATE = Halted (3)
+309: JIF 15, 330    # Scheduler'a git
+
+    # Thread 1 Halted
+320: SET 3, 31      # TCB1_STATE = Halted (3)
+321: JIF 15, 330    # Scheduler'a git
+
+    # Thread 2 Halted  
+325: SET 3, 41      # TCB2_STATE = Halted (3)
+326: JIF 15, 330    # Scheduler'a git
+
+    # Scheduler'i çağır
+330: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
+331: HLT            # Güvenlik HLT'si
+
+
+
+
+#-----------------------------------------------------
+# SYSCALL_YIELD Handler (memory[12]=400) - 3 THREAD İÇİN GÜNCELLENMİŞ
+#-----------------------------------------------------
+400: CPY 15, 72     # yielded_thread_id = memory[15]
+401: SET 0, 15      # current_running_thread_id = 0 (OS kontrolu aldi)
+402: CPY 2, 17      # saved_pc = memory[2] 
+403: CPY 1, 18      # saved_sp = memory[1]
+
+    # Thread ID kontrolü
+404: CPY 72, 70     # temp_id = yielded_thread_id
+405: ADD 70, -1     # temp_id = temp_id - 1
+406: JIF 70, 440    # if temp_id <= 0 (thread_id == 1) goto TCB1_Save
+
+    # Thread 2 mi Thread 3 mü kontrol et
+407: CPY 70, 71     # temp_id'yi kopyala
+408: ADD 71, -1     # temp_id - 1
+409: JIF 71, 450    # if temp_id-1 <= 0 (thread_id == 2) goto TCB2_Save
+
+    # Thread 3 Context Save
+410: CPY 17, 52     # TCB3_PC = saved_pc
+411: CPY 18, 53     # TCB3_SP = saved_sp
+412: SET 0, 51      # TCB3_STATE = Ready (0)
+413: SET 1, 16      # next_thread_to_run_id = 1 (round robin)
+414: JIF 15, 460    # GOTO Scheduler
+
+    # Thread 1 Context Save
+440: CPY 17, 32     # TCB1_PC = saved_pc
+441: CPY 18, 33     # TCB1_SP = saved_sp
+442: SET 0, 31      # TCB1_STATE = Ready (0)
+443: SET 2, 16      # next_thread_to_run_id = 2
+444: JIF 15, 460    # GOTO Scheduler
+
+    # Thread 2 Context Save
+450: CPY 17, 42     # TCB2_PC = saved_pc
+451: CPY 18, 43     # TCB2_SP = saved_sp
+452: SET 0, 41      # TCB2_STATE = Ready (0)
+453: SET 3, 16      # next_thread_to_run_id = 3
+454: JIF 15, 460    # GOTO Scheduler
+
+    # Scheduler'i çağır
+460: CALL 600       # GOTO_SCHEDULER_AND_RUN_THREAD
+461: HLT            # Güvenlik HLT'si
+
+
+#-----------------------------------------------------
+# SYSCALL_PRN_HANDLER - 3 THREAD İÇİN GÜNCELLENMİŞ
+#-----------------------------------------------------
+500: CPY 15, 72     # prn_caller_thread_id_copy = memory[15]
+501: CPY 2, 17      # saved_pc_for_tcb = memory[2]
+502: CPY 1, 18      # saved_sp_for_tcb = memory[1]
+503: SET 0, 15      # current_running_thread_id = 0
+
+    # Unblock IE hesapla
+504: CPY 3, 73      # temp_unblock_ie = memory[3]
+505: ADD 73, 100    # temp_unblock_ie = current_IE + 100
+
+    # Thread ID kontrolü
+506: CPY 72, 70     # temp_id_check = prn_caller_thread_id
+507: ADD 70, -1     # temp_id_check = temp_id - 1
+508: JIF 70, 540    # if temp_id <= 0 (thread_id == 1) goto TCB1_Block
+
+    # Thread 2 mi Thread 3 mü kontrol et
+509: CPY 70, 71     # temp_id'yi kopyala
+510: ADD 71, -1     # temp_id - 1
+511: JIF 71, 550    # if temp_id-1 <= 0 (thread_id == 2) goto TCB2_Block
+
+    # Thread 3 Block
+512: CPY 17, 52     # TCB3_SavedPC = saved_pc
+513: CPY 18, 53     # TCB3_SavedSP = saved_sp
+514: SET 2, 51      # TCB3_STATE = Blocked (2)  // ya da  CPY 74, 51
+515: CPY 73, 54     # TCB3_UnblockIECount = temp_unblock_ie
+516: JIF 15, 560    # Scheduler'a git
+
+    # Thread 1 Block
+540: CPY 17, 32     # TCB1_SavedPC = saved_pc
+541: CPY 18, 33     # TCB1_SavedSP = saved_sp
+542: SET 2, 31      # TCB1_STATE = Blocked (2)  // ya da  CPY 74, 31
+543: CPY 73, 34     # TCB1_UnblockIECount = temp_unblock_ie
+544: JIF 15, 560    # Scheduler'a git
+
+    # Thread 2 Block
+550: CPY 17, 42     # TCB2_SavedPC = saved_pc
+551: CPY 18, 43     # TCB2_SavedSP = saved_sp
+552: SET 2, 41      # TCB2_STATE = Blocked (2)  // ya da  CPY 74, 41
+553: CPY 73, 44     # TCB2_UnblockIECount = temp_unblock_ie
+554: JIF 15, 560    # Scheduler'a git
+
+    # Scheduler'i çağır
+560: CALL 600       # Scheduler'i çağır
+561: HLT            # Güvenlik HLT'si
+
+
+# THREAD BLOCK KONTROLÜ CHECK_IF_THREAD_CAN_BE_UNBLOCKED
+
+# --- PRN ile Block olan threadleri kontrol et --- 
+
+# Şimdi ilk kontrol: Halted mi?
+570: CPY 31, 72        # tekrar state al
+571: ADD 72, -2        # STATE - 2
+572: JIF 72, 574       # eğer state == 3 → T2'ye geç #jif e girip   574 gitmiyorsa  halteddir
+573: JIF 15, 580       #  EĞER HALTEDSE YANİ 3 SE 3-2= 1 1 SE 574 E GİTMEZ 573 DEVAM EDER 573 DE OTOMATİK 580 T2 GİDER   
+                       # 15 DE OSDA OLDUGUMUZ İCİN 0 ZATEN 
+574: CPY 3, 70        # current_IE → mem[70]
+575: CPY 34, 71       # TCB1_StartingIE → mem[71]
+576: SUBI 70, 71       # fark = current_IE - (unblock_IE)
+577: JIF 71, 580      #  fark <= 0 ise → thread1 hala block
+578: SET 0, 31     # TCB1_STATE = Ready
+579: SET 0, 34     # unblock_IE bilgisini sıfırla (opsiyonel ama temiz olur)
+
+
+# Şimdi ilk kontrol: Halted mi? T2
+580: CPY 41, 72        # tekrar state al
+581: ADD 72, -2
+582: JIF 72, 584       # eğer state == 3 → T3'ye geç
+583: JIF 15, 589              # jife girmiyorsa halteddir
+
+#SUBI  SUBI 70, 71  70 DEN 71 CİKARİYO SONRA 71 E KOYUYO 
+# --- T2 kontrolü ---
+584: CPY 44, 71       # TCB2_StartingIE → mem[71]
+585: SUBI 70, 71      # fark = current_IE - (startingIE + 100) 
+586: JIF 71, 589     #  fark <= 0 ise → thread2 hala block
+587: SET 0, 41     # TCB2_STATE = Ready
+588: SET 0, 44     # unblock_IE bilgisini sıfırla (opsiyonel ama temiz olur)
+
+# Şimdi ilk kontrol: Halted mi? T3
+589: CPY 51, 72        # tekrar state al
+590: ADD 72, -2
+591: JIF 72, 593       # eğer state == 3 → bitir
+592: RET               # jife girmiyorsa halteddir
+
+#SUBI  SUBI 70, 71  70 DEN 71 CİKARİYO SONRA 71 E KOYUYO 
+# --- T3 kontrolü ---
+593: CPY 3, 70        # current_IE → mem[70]
+594: CPY 54, 71       # TCB2_StartingIE → mem[71]
+595: SUBI 70, 71      # fark = current_IE - (startingIE + 100) 
+596: JIF 71, 599     #  fark <= 0 ise → thread2 hala block
+597: SET 0, 51     # TCB2_STATE = Ready
+598: SET 0, 54     # unblock_IE bilgisini sıfırla (opsiyonel ama temiz olur)
+599: RET
+
+
+
+#-----------------------------------------------------
+# SCHEDULER_AND_RUN_THREAD - 3 THREAD İÇİN GÜNCELLENMİŞ
+#-----------------------------------------------------
+600: CALL 700       # CHECK_IF_ALL_THREADS_HALTED
+601: CALL 570       # CHECK_IF_THREAD_CAN_BE_UNBLOCKED
+602: CPY 16, 71     # run_id_candidate = next_thread_to_run_id
+
+    # Thread ID kontrolü (1, 2, veya 3)
+603: CPY 71, 72     # run_id_candidate → temp
+604: ADD 72, -1     # temp = run_id_candidate - 1
+605: JIF 72, 650    # if temp <= 0 (thread_id == 1) goto Check_T1
+
+606: CPY 72, 70     # temp'i kopyala
+607: ADD 70, -1     # temp - 1
+608: JIF 70, 660    # if temp-1 <= 0 (thread_id == 2) goto Check_T2
+
+    # Thread 3 kontrol ve çalıştır
+609: CPY 51, 72     # TCB3_STATE → temp
+610: JIF 72, 670    # if Ready goto Run_T3
+611: SET 1, 16      # next_thread_to_run_id = 1 (round robin)
+612: JIF 15, 600    # Scheduler'ı tekrar çağır
+
+    # Thread 1 kontrol
+650: CPY 31, 72     # TCB1_STATE → temp
+651: JIF 72, 680    # if Ready goto Run_T1
+652: SET 2, 16      # next_thread_to_run_id = 2
+653: JIF 15, 600    # Scheduler'ı tekrar çağır
+
+    # Thread 2 kontrol
+660: CPY 41, 72     # TCB2_STATE → temp
+661: JIF 72, 690    # if Ready goto Run_T2
+662: SET 3, 16      # next_thread_to_run_id = 3
+663: JIF 15, 600    # Scheduler'ı tekrar çağır
+
+    # Thread 3'ü çalıştır
+670: CPY 53, 1      # CPU_SP = TCB3_SP
+671: SET 3, 15      # current_running_thread_id = 3
+672: SET 1, 51      # TCB3_STATE = Running
+673: CPY 3, 55      # TCB3_StartingIE = current_total_IE
+674: SET 0, 21      # TCB0_STATE = Ready
+675: CPY 52, 70     # temp = TCB3_PC
+676: USER 70        # Kullanıcı moduna geç
+677: HLT            # Güvenlik HLT'si
+
+    # Thread 1'i çalıştır
+680: CPY 33, 1      # CPU_SP = TCB1_SP
+681: SET 1, 15      # current_running_thread_id = 1
+682: SET 1, 31      # TCB1_STATE = Running
+683: CPY 3, 35      # TCB1_StartingIE = current_total_IE
+684: SET 0, 21      # TCB0_STATE = Ready
+685: CPY 32, 70     # temp = TCB1_PC
+686: USER 70        # Kullanıcı moduna geç
+687: HLT            # Güvenlik HLT'si
+
+    # Thread 2'yi çalıştır
+690: CPY 43, 1      # CPU_SP = TCB2_SP
+691: SET 2, 15      # current_running_thread_id = 2
+692: SET 1, 41      # TCB2_STATE = Running
+693: CPY 3, 45      # TCB2_StartingIE = current_total_IE
+694: SET 0, 21      # TCB0_STATE = Ready
+695: CPY 42, 70     # temp = TCB2_PC
+696: USER 70        # Kullanıcı moduna geç
+697: HLT            # Güvenlik HLT'si
+
+
+
+#-----------------------------------------------------
+# CHECK_IF_ALL_THREADS_HALTED - 3 THREAD İÇİN GÜNCELLENMİŞ
+#-----------------------------------------------------
+700: CPY 31, 78     # t1_state = TCB1_STATE
+701: CPY 41, 79     # t2_state = TCB2_STATE
+702: CPY 51, 80     # t3_state = TCB3_STATE
+
+    # Thread 1: State == 3 (Halted) mı kontrol et
+703: ADD 78, -2     # t1_state - 2
+704: JIF 78, 720    # If t1_state <= 2, en az biri aktif
+
+    # Thread 2: State == 3 (Halted) mı kontrol et
+705: ADD 79, -2     # t2_state - 2
+706: JIF 79, 720    # If t2_state <= 2, en az biri aktif
+
+    # Thread 3: State == 3 (Halted) mı kontrol et
+707: ADD 80, -2     # t3_state - 2
+708: JIF 80, 720    # If t3_state <= 2, en az biri aktif
+
+    # Hepsi Halted - OS'yi sonlandır
+709: JIF 15, 203     # OS'yi HLT et (203 numaralı satır)
+
+720: RET            # En az biri aktif, devam et
+
+
+#-----------------------------------------------------
+    # THREAD 1 KOMUTLARI (Baslangic: 1000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+1000: SET 8, 1050       #SYSCALL_HLT       i = 8
+1001: SET 0, 1052
+1002: SET 0, 1051        # sum = 0
+1003: ADDI 1051, 1050      # sum = sum + i
+1004: ADD 1050, -1       # i = i - 1
+1005: SYSCALL_PRN 1051  # print current sum 
+1006: JIF 1050, 1008     # if i <= 0 goto end
+1007: JIF 1052, 1003   # give control back to OS
+1008: SYSCALL_HLT      # end of thread
+
+
+#-----------------------------------------------------
+    # THREAD 2 KOMUTLARI (Baslangic: 2000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+2000: SET 7, 2050        #SYSCALL_HLT        # i = 5
+2001: SET 0, 2052        # dummy for loop (true)
+2002: SET 0, 2051        # sum = 0
+2003: ADDI 2051, 2050    # sum += i
+2004: ADD 2050, -1       # i--
+2005: SYSCALL_PRN 2051   # print sum
+2006: JIF 2050, 2008     # if i <= 0 goto HLT
+2007: JIF 2052, 2003     # loop back
+2008: SYSCALL_HLT        # end thread
+
+#-----------------------------------------------------
+# THREAD 3 KOMUTLARI (Başlangıç: 3000) - Bubble Sort
+#Farklı sayıları sıralamak için sadece 3050-3057 adreslerindeki 
+#değerleri ve 3050'deki N değerini değiştirmeniz yeterli.
+#-----------------------------------------------------
+# --- THREAD 3 KOMUTLARI (Başlangıç: 3000) - DÜZELTİLMİŞ Bubble Sort ---
+3000: CPY  3550, 3563    # n = N (5)
+3001: ADD  3563, -1      # n-1 = 4
+3002: SET  0, 3560       # i = 0
+
+# --- DIŞ DÖNGÜ BAŞLANGICI (i döngüsü) ---
+3003: CPY  3560, 3564    # temp_i = i
+3004: CPY  3563, 3565    # temp_n1 = N-1
+3005: SUBI 3565, 3564    # temp_comparison = (N-1)-i ilk - ikinci sonra ikincie yaz
+3006: JIF  3564, 3050    # Eğer comparison <= 0 ise devam, değilse yazdırmaya git
+3007: ADD  3564, -1       # temp_comparison -1  
+3008: SET  0, 3561       # j = 0
+
+# --- İÇ DÖNGÜ BAŞLANGICI (j döngüsü) ---
+3009: CPY  3561, 3566    # temp_j = j
+3010: CPY  3563, 3567    # temp_n1 = N-1
+3011: CPY  3560, 3568    # temp_i = i
+3012: SUBI 3567, 3568    # limit = (N-1) - i
+3013: SUBI 3568, 3566    # comparison = limit -j 
+3014: JIF  3566, 3040     # Eğer (limit - j) ≤ 0 ise, i++
+3015: ADD  3566, -1       # comparison - 1
+
+
+# --- DİZİ ELEMAN ADRESLERİNİ HESAPLA ---
+3016: SET  3551, 3565    # base = 3051 (array başlangıç adresi)
+3017: CPY  3561, 3566    # temp_j = j
+3018: ADDI 3565, 3566    # array[j] adresi = base + j
+3019: CPY  3565, 3567    # array[j] adresini sakla
+3020: ADD  3567, 1       # array[j+1] adresi = array[j] adresi + 1
+
+# --- DİZİ ELEMANLARININ DEĞERLERİNİ AL ---
+3021: CPYI 3565, 3568    # 3068 = array[j] değeri
+3022: CPYI 3567, 3569    # 3069 = array[j+1] değeri
+
+# --- KARŞILAŞTIRMA: array[j] > array[j+1] MI? ---
+3023: CPY  3568, 3562    # temp = array[j]
+3024: SUBI 3562, 3569    # temp = array[j] - array[j+1]
+3025: JIF  3562, 3035    # if (array[j] <= array[j+1]) ise j++ yap
+
+
+ #--- SWAP İSLEMİ (DUZELTILMIS) ---
+3026: CPY  3568, 3562    # temp = array[j] değeri
+3027: SET  3569, 3580    # Store address containing array[j+1] value
+3028: SET  3562, 3581    # Store address containing temp value  
+3029: CPY 3580, 3565   # Copy from address pointed by 3570 to address pointed by 3565
+3030: CPY 3581, 3567   # Copy from address pointed by 3571 to address pointed by 3567
+
+# --- T ---
+3031: SET  0, 3600
+3032: JIF 3600, 3035
+
+# --- J'Yİ 1 ARTTIR ve İÇ DÖNGÜYE DÖN (DÜZELTİLMİŞ) ---
+3035: ADD  3561, 1       # j++
+3036: JIF  3600, 3009       # PC = 3008'e git (döngü başı) ## düzelt 
+
+# --- İ DÖNGÜSÜ İÇİN: i++ ve DIŞ DÖNGÜ BAŞINA DÖN (DÜZELTİLMİŞ) ---
+3040: ADD  3560, 1       # i++
+3041: JIF  3600, 3003       # PC = 3003'e git (dış döngü başı) ## düzelt 
+
+# --- SONUÇLARI YAZDIRMA AŞAMASI ---
+3050: SET  0, 3580       # print_index = 0
+
+# --- YAZDIRMA DÖNGÜSÜ (DÜZELTİLMİŞ) ---
+3051: CPY  3580, 3581    # temp_index = print_index
+3052: CPY  3550, 3582    # temp_N = N
+3053: SUBI 3582, 3581    # comparison = n- print_index
+3054: JIF  3581, 3065    # if (n-print_index <=0) ise HALT
+
+# --- DİZİ ELEMANINI YAZDIR ---
+3055: SET  3551, 3581    # base_addr = 3551
+3056: CPY  3580, 3582    # temp_index = print_index
+3057: ADDI 3581, 3582    # element_addr = base_addr + print_index
+3058: CPYI 3581, 3583    # element_value = array[print_index]
+3059: SYSCALL_PRN 3583   # ekrana yazdır
+
+# --- YAZDIRMA İNDEXİNİ ARTTIR (DÜZELTİLMİŞ) ---
+3060: ADD  3580, 1       # print_index++
+3061: JIF  3600, 3051       # PC = 3051'e git (yazdırma döngüsü başı)
+
+# --- PROGRAM SONU ---
+3065: SYSCALL_HLT        # Thread'i sonlandır
+
+#-----------------------------------------------------
+    # THREAD 4 KOMUTLARI (Baslangic: 4000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+4000: SYSCALL_HLT     
+
+
+#-----------------------------------------------------
+    # THREAD 5 KOMUTLARI (Baslangic: 5000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+5000: SYSCALL_HLT     
+
+
+#-----------------------------------------------------
+    # THREAD 6 KOMUTLARI (Baslangic: 6000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+6000: SYSCALL_HLT     
+
+
+#-----------------------------------------------------
+    # THREAD 7 KOMUTLARI (Baslangic: 7000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+7000: SYSCALL_HLT     
+
+
+#-----------------------------------------------------
+    # THREAD 8 KOMUTLARI (Baslangic: 8000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+8000: SYSCALL_HLT     
+
+
+#-----------------------------------------------------
+    # THREAD 9 KOMUTLARI (Baslangic: 9000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+9000: SYSCALL_HLT     
+
+#-----------------------------------------------------
+    # THREAD 10 KOMUTLARI (Baslangic: 10000) - Basitlestirilmis Hali
+    #-----------------------------------------------------
+10000: SYSCALL_HLT    
+
+End Instruction Section
