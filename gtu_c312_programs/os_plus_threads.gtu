@@ -174,35 +174,33 @@ Begin Data Section
     2201 = 0
 
     # --- THREAD 3 Veri Alani (3000-3999) - Bubble Sort ---
-    3050 = 5          # N = sıralanacak sayı adedi
-    3051 = 64         # array[0] = ilk sayı
-    3052 = 34         # array[1] = ikinci sayı  
-    3053 = 25         # array[2] = üçüncü sayı
-    3054 = 12         # array[3] = dördüncü sayı
-    3055 = 22         # array[4] = beşinci sayı
-    3056 = 11         # array[5] = altıncı sayı (yedek)
-    3057 = 90         # array[6] = yedinci sayı (yedek)
+    3550 = 5          # N = sıralanacak sayı adedi
+    3551 = 34         # array[0] = ilk sayı
+    3552 = 64         # array[1] = ikinci sayı  
+    3553 = 25         # array[2] = üçüncü sayı
+    3554 = 12         # array[3] = dördüncü sayı
+    3555 = 22         # array[4] = beşinci sayı
+    3556 = 11         # array[5] = altıncı sayı (yedek)
+    3557 = 90         # array[6] = yedinci sayı (yedek)
 
     # --- Bubble Sort için geçici değişkenler ---
-    3060 = 0          # i (dış döngü sayacı)
-    3061 = 0          # j (iç döngü sayacı)  
-    3062 = 0          # temp (swap için geçici değişken)
-    3063 = 0          # n-1 değeri
-    3064 = 0          # n-1-i değeri (iç döngü limiti)
-    3065 = 0          # array[j] adresi
-    3066 = 0          # array[j+1] adresi
-    3067 = 0          # array[j] değeri
-    3068 = 0          # array[j+1] değeri
-    3069 = 1          # sabit 1
-    3070 = 3051       # array başlangıç adresi
+    3560 = 0          # i (dış döngü sayacı)
+    3561 = 0          # j (iç döngü sayacı)  
+    3562 = 0          # temp (swap için geçici değişken)
+    3563 = 0          # n-1 değeri
+    3564 = 0          # n-1-i değeri (iç döngü limiti)
+    3565 = 0         # array[j] adresi
+    3566 = 0          # array[j+1] adresi
+    3567 = 0          # array[j] değeri
+    3568 = 0          # array[j+1] değeri
+    3569 = 1          # sabit 1
+    3570 = 3551       # array başlangıç adresi
 
     # --- Yazdırma için değişkenler ---
-    3080 = 0          # print_index
-    3081 = 0          # print_address
-    3082 = 0          # limit
+    3580 = 0          # print_index
+    3581 = 0          # print_address
+    3582 = 0          # limit
 
-    3200 = 0          # Diğer kullanımlar için
-    3201 = 0
 
 End Data Section
 
@@ -370,8 +368,8 @@ Begin Instruction Section
 # Şimdi ilk kontrol: Halted mi? T2
 580: CPY 41, 72        # tekrar state al
 581: ADD 72, -2
-582: JIF 72, 584       # eğer state == 3 → T2'ye geç
-583: RET               # jife girmiyorsa halteddir
+582: JIF 72, 584       # eğer state == 3 → T3'ye geç
+583: JIF 15, 589              # jife girmiyorsa halteddir
 
 #SUBI  SUBI 70, 71  70 DEN 71 CİKARİYO SONRA 71 E KOYUYO 
 # --- T2 kontrolü ---
@@ -384,7 +382,7 @@ Begin Instruction Section
 # Şimdi ilk kontrol: Halted mi? T3
 589: CPY 51, 72        # tekrar state al
 590: ADD 72, -2
-591: JIF 72, 593       # eğer state == 3 → T3'ye geç
+591: JIF 72, 593       # eğer state == 3 → bitir
 592: RET               # jife girmiyorsa halteddir
 
 #SUBI  SUBI 70, 71  70 DEN 71 CİKARİYO SONRA 71 E KOYUYO 
@@ -493,7 +491,7 @@ Begin Instruction Section
 #-----------------------------------------------------
     # THREAD 1 KOMUTLARI (Baslangic: 1000) - Basitlestirilmis Hali
     #-----------------------------------------------------
-1000: SET 8, 1050        # SET 8, 1050       i = 10
+1000: SYSCALL_HLT #SET 8, 1050        # SET 8, 1050       i = 10
 1001: SET 0, 1052
 1002: SET 0, 1051        # sum = 0
 1003: ADDI 1051, 1050      # sum = sum + i
@@ -507,7 +505,7 @@ Begin Instruction Section
 #-----------------------------------------------------
     # THREAD 2 KOMUTLARI (Baslangic: 2000) - Basitlestirilmis Hali
     #-----------------------------------------------------
-2000: SET 7, 2050        # i = 7
+2000: SYSCALL_HLT #SET 7, 2050        # i = 7
 2001: SET 0, 2052        # dummy for loop (true)
 2002: SET 0, 2051        # sum = 0
 2003: ADDI 2051, 2050    # sum += i
@@ -523,76 +521,80 @@ Begin Instruction Section
 #değerleri ve 3050'deki N değerini değiştirmeniz yeterli.
 #-----------------------------------------------------
 # --- THREAD 3 KOMUTLARI (Başlangıç: 3000) - DÜZELTİLMİŞ Bubble Sort ---
-3000: CPY  3050, 3063    # n = N (5)
-3001: ADD  3063, -1      # n-1 = 4
-3002: SET  0, 3060       # i = 0
+3000: CPY  3550, 3563    # n = N (5)
+3001: ADD  3563, -1      # n-1 = 4
+3002: SET  0, 3560       # i = 0
 
 # --- DIŞ DÖNGÜ BAŞLANGICI (i döngüsü) ---
-3003: CPY  3060, 3064    # temp_i = i
-3004: CPY  3063, 3065    # temp_n1 = N-1
-3005: SUBI 3064, 3065    # temp_comparison = i - (N-1)
-3006: JIF  3065, 3050    # Eğer comparison <= 0 ise devam, değilse yazdırmaya git
-3007: SET  0, 3061       # j = 0
+3003: CPY  3560, 3564    # temp_i = i
+3004: CPY  3563, 3565    # temp_n1 = N-1
+3005: SUBI 3565, 3564    # temp_comparison = (N-1)-i ilk - ikinci sonra ikincie yaz
+3006: JIF  3564, 3050    # Eğer comparison <= 0 ise devam, değilse yazdırmaya git
+3007: ADD  3564, -1       # temp_comparison -1  
+3008: SET  0, 3561       # j = 0
 
 # --- İÇ DÖNGÜ BAŞLANGICI (j döngüsü) ---
-3008: CPY  3061, 3066    # temp_j = j
-3009: CPY  3063, 3067    # temp_n1 = N-1
-3010: CPY  3060, 3068    # temp_i = i
-3011: SUBI 3067, 3068    # limit = (N-1) - i
-3012: SUBI 3066, 3067    # comparison = j - limit
-3013: JIF  3067, 3040    # Eğer j >= limit ise i++ yap
+3009: CPY  3561, 3566    # temp_j = j
+3010: CPY  3563, 3567    # temp_n1 = N-1
+3011: CPY  3560, 3568    # temp_i = i
+3012: SUBI 3567, 3568    # limit = (N-1) - i
+3013: SUBI 3568, 3566    # comparison = limit -j 
+3014: JIF  3566, 3040     # Eğer (limit - j) ≤ 0 ise, i++
+3015: ADD  3566, -1       # comparison - 1
+
 
 # --- DİZİ ELEMAN ADRESLERİNİ HESAPLA ---
-3014: SET  3051, 3065    # base = 3051 (array başlangıç adresi)
-3015: CPY  3061, 3066    # temp_j = j
-3016: ADDI 3065, 3066    # array[j] adresi = base + j
-3017: CPY  3065, 3067    # array[j] adresini sakla
-3018: ADD  3067, 1       # array[j+1] adresi = array[j] adresi + 1
+3016: SET  3551, 3565    # base = 3051 (array başlangıç adresi)
+3017: CPY  3561, 3566    # temp_j = j
+3018: ADDI 3565, 3566    # array[j] adresi = base + j
+3019: CPY  3565, 3567    # array[j] adresini sakla
+3020: ADD  3567, 1       # array[j+1] adresi = array[j] adresi + 1
 
 # --- DİZİ ELEMANLARININ DEĞERLERİNİ AL ---
-3019: CPYI 3065, 3068    # 3068 = array[j] değeri
-3020: CPYI 3067, 3069    # 3069 = array[j+1] değeri
+3021: CPYI 3565, 3568    # 3068 = array[j] değeri
+3022: CPYI 3567, 3569    # 3069 = array[j+1] değeri
 
 # --- KARŞILAŞTIRMA: array[j] > array[j+1] MI? ---
-3021: CPY  3068, 3062    # temp = array[j]
-3022: SUBI 3062, 3069    # temp = array[j] - array[j+1]
-3023: JIF  3062, 3035    # if (array[j] <= array[j+1]) ise j++ yap
+3023: CPY  3568, 3562    # temp = array[j]
+3024: SUBI 3562, 3569    # temp = array[j] - array[j+1]
+3025: JIF  3562, 3035    # if (array[j] <= array[j+1]) ise j++ yap
 
 # --- SWAP İŞLEMİ (DÜZELTİLMİŞ) ---
-3024: CPY  3068, 3062    # temp = array[j] değeri
-3025: CPYI 3069, 3065    # array[j] = array[j+1] değeri (indirect write)
-3026: CPYI 3062, 3067    # array[j+1] = temp (indirect write)
+3026: CPY  3568, 3562    # temp = array[j] değeri
+3027: CPYI2  3569, 3565    # array[j] = array[j+1] değeri (indirect write)
+3028: CPYI2  3562, 3567    # array[j+1] = temp (indirect write)
 
-# --- CPU'YU YIELD ET ---
-3027: SYSCALL_YIELD
+# --- T ---
+3029: SET  0, 3600
+3030: JIF 3600, 3035
 
 # --- J'Yİ 1 ARTTIR ve İÇ DÖNGÜYE DÖN (DÜZELTİLMİŞ) ---
-3035: ADD  3061, 1       # j++
-3036: JIF  0, 3008       # PC = 3008'e git (döngü başı)
+3035: ADD  3561, 1       # j++
+3036: JIF  3600, 3009       # PC = 3008'e git (döngü başı) ## düzelt 
 
 # --- İ DÖNGÜSÜ İÇİN: i++ ve DIŞ DÖNGÜ BAŞINA DÖN (DÜZELTİLMİŞ) ---
-3040: ADD  3060, 1       # i++
-3041: JIF  0, 3003       # PC = 3003'e git (dış döngü başı)
+3040: ADD  3560, 1       # i++
+3041: JIF  3600, 3003       # PC = 3003'e git (dış döngü başı) ## düzelt 
 
 # --- SONUÇLARI YAZDIRMA AŞAMASI ---
-3050: SET  0, 3080       # print_index = 0
+3050: SET  0, 3580       # print_index = 0
 
 # --- YAZDIRMA DÖNGÜSÜ (DÜZELTİLMİŞ) ---
-3051: CPY  3080, 3081    # temp_index = print_index
-3052: CPY  3050, 3082    # temp_N = N
-3053: SUBI 3081, 3082    # comparison = print_index - N
-3054: JIF  3082, 3065    # if (print_index >= N) ise HALT
+3051: CPY  3580, 3581    # temp_index = print_index
+3052: CPY  3550, 3582    # temp_N = N
+3053: SUBI 3582, 3581    # comparison = n- print_index
+3054: JIF  3581, 3065    # if (n-print_index <=0) ise HALT
 
 # --- DİZİ ELEMANINI YAZDIR ---
-3055: SET  3051, 3081    # base_addr = 3051
-3056: CPY  3080, 3082    # temp_index = print_index
-3057: ADDI 3081, 3082    # element_addr = base_addr + print_index
-3058: CPYI 3081, 3083    # element_value = array[print_index]
-3059: SYSCALL_PRN 3083   # ekrana yazdır
+3055: SET  3551, 3581    # base_addr = 3551
+3056: CPY  3580, 3582    # temp_index = print_index
+3057: ADDI 3581, 3582    # element_addr = base_addr + print_index
+3058: CPYI 3581, 3583    # element_value = array[print_index]
+3059: SYSCALL_PRN 3583   # ekrana yazdır
 
 # --- YAZDIRMA İNDEXİNİ ARTTIR (DÜZELTİLMİŞ) ---
-3060: ADD  3080, 1       # print_index++
-3061: JIF  0, 3051       # PC = 3051'e git (yazdırma döngüsü başı)
+3060: ADD  3580, 1       # print_index++
+3061: JIF  3600, 3051       # PC = 3051'e git (yazdırma döngüsü başı)
 
 # --- PROGRAM SONU ---
 3065: SYSCALL_HLT        # Thread'i sonlandır

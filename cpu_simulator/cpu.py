@@ -201,7 +201,6 @@ class CPU:
                 print(f"Error: CPY requires 2 arguments, got {len(args)}. Halting.")
                 self.is_halted = True
         elif command == "CPYI":
-            # ... (CPYI kodu aynı) ...
             if len(args) == 2:
                 try:
                     pointer_address = int(args[0]) 
@@ -219,31 +218,32 @@ class CPU:
                 print(f"Error: CPYI requires 2 arguments, got {len(args)}. Halting.")
                 self.is_halted = True
         # YENİ EKLENEN KOMUT
-        elif command == "CPYI2": # Format: CPYI2 A1 A2 (memory[memory[A2]] = memory[memory[A1]])
+        elif command == "CPYI2":
             if len(args) == 2:
                 try:
-                    pointer_addr1 = int(args[0]) # A1: Kaynak işaretçisini tutan adres
-                    pointer_addr2 = int(args[1]) # A2: Hedef işaretçisini tutan adres
+                    src_ptr = int(args[0])    # src_ptr hücresindeki değer = kaynak adres
+                    dest_ptr = int(args[1])   # dest_ptr hücresindeki değer = hedef adres
+                    if self._is_valid_address(src_ptr, "read pointer") and \
+                        self._is_valid_address(dest_ptr, "write pointer"):
 
-                    # Tüm seviyeler için adres ve erişim kontrolü
-                    if self._is_valid_address(pointer_addr1, "read pointer1 for CPYI2") and \
-                       self._is_valid_address(pointer_addr2, "read pointer2 for CPYI2"):
-                        
-                        source_addr_via_ptr1 = self.memory[pointer_addr1] # İşaretçi1'in gösterdiği asıl kaynak adresi
-                        dest_addr_via_ptr2 = self.memory[pointer_addr2]   # İşaretçi2'nin gösterdiği asıl hedef adresi
+                        src_addr = self.memory[src_ptr]
+                        dest_addr = self.memory[dest_ptr]
 
-                        if self._is_valid_address(source_addr_via_ptr1, "read indirect source for CPYI2") and \
-                           self._is_valid_address(dest_addr_via_ptr2, "write indirect dest for CPYI2"):
-                            
-                            self.memory[dest_addr_via_ptr2] = self.memory[source_addr_via_ptr1]
+                        if self._is_valid_address(src_addr, "read (indirect)") and \
+                            self._is_valid_address(dest_addr, "write (indirect)"):
+
+                            self.memory[dest_addr] = self.memory[src_addr]
                             executed_successfully = True
-                except ValueError:
-                    print(f"Error: Invalid arguments for CPYI2: {args}. Halting.")
+
+                            if dest_addr == CPU.REG_PC:
+                                pc_incremented_by_command = True
+                except Exception as e:
+                    print(f"CPYI2 error: {e}. Halting.")
                     self.is_halted = True
             else:
-                print(f"Error: CPYI2 requires 2 arguments, got {len(args)}. Halting.")
+                print("Error: CPYI2 requires 2 arguments. Halting.")
                 self.is_halted = True
-        
+
         elif command == "ADD":
             # ... (ADD kodu aynı) ...
             if len(args) == 2:
@@ -545,7 +545,7 @@ class CPU:
         """
         if not self.is_halted:
             #print()
-            #print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
+            print(f"[RUN_CYCLE] PC: {self.pc}, SP: {self.sp}, Mode: {self.mode}, Thread: {self.memory[15]}")
             instruction_str = self._fetch()
             if instruction_str and not self.is_halted: # Fetch sırasında hata olup durdurulmadıysa
                 self._decode_execute(instruction_str)
